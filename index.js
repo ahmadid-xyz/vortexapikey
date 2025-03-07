@@ -118,22 +118,7 @@ if (!text) {
 return res.status(400).send("Parameter 'text' is required.");
 }
 
-app.get('/api/tobase64', async (req, res) => {
-    try {
-        const filePath = req.query.file;
-        if (!filePath) {
-            return res.status(400).json({ error: 'Parameter "file" tidak ditemukan' });
-        }
 
-        const base64String = await ptz.tobase64(filePath);
-        res.status(200).json({
-            status: 200,
-            creator: "Vortex Apis",
-            data: { base64: base64String }
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
 
 try {
 const requestData = {
