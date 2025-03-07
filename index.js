@@ -1,17 +1,23 @@
-var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
-const ptz = require('./function/index') 
-const axios = require('axios')
+const express = require("express");
+const cors = require("cors");
+const secure = require("ssl-express-www");
+const os = require("os");
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
+const ptz = require("./function/index");
 
-var app = express();
+const app = express();
 app.enable("trust proxy");
 app.set("json spaces", 2);
 app.use(cors());
 app.use(secure);
 const port = 3000;
 
+// Multer untuk upload file langsung
+const upload = multer({ storage: multer.memoryStorage() });
+
+// Endpoint untuk mendapatkan stats server
 app.get('/stats', (req, res) => {
  const stats = {
  platform: os.platform(),
@@ -36,127 +42,64 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+// Endpoint utama
 app.get('/', (req, res) => {
  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/api/ragbot', async (req, res) => {
+// Endpoint untuk konversi file di server ke Base64 (query parameter)
+app.get('/api/tobase64', async (req, res) => {
  try {
- const message = req.query.message;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+ const filePath = req.query.file;
+ if (!filePath) {
+ return res.status(400).json({ error: 'Parameter "file" tidak ditemukan' });
  }
- const response = await ptz.ragBot(message);
+
+ if (!fs.existsSync(filePath)) {
+ return res.status(404).json({ error: 'File tidak ditemukan' });
+ }
+
+ const base64String = await ptz.tobase64(filePath);
  res.status(200).json({
  status: 200,
  creator: "Vortex Apis",
- data: { response }
+ data: { base64: base64String }
  });
  } catch (error) {
  res.status(500).json({ error: error.message });
  }
 });
 
-// Endpoint untuk degreeGuru
-app.get('/api/degreeguru', async (req, res) => {
+// Endpoint untuk upload file langsung dan konversi ke Base64
+app.post('/api/tobase64', upload.single('file'), async (req, res) => {
  try {
- const { message }= req.query;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+ if (!req.file) {
+ return res.status(400).json({ error: 'File tidak ditemukan' });
  }
- const response = await ptz.degreeGuru(message);
+
+ const base64String = req.file.buffer.toString('base64');
  res.status(200).json({
  status: 200,
  creator: "Vortex Apis",
- data: { response }
+ data: { base64: base64String }
  });
  } catch (error) {
  res.status(500).json({ error: error.message });
  }
 });
 
-// Endpoint untuk smartContract
-app.get('/api/smartcontract', async (req, res) => {
- try {
- const message = req.query.message;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
- }
- const response = await ptz.smartContract(message);
- res.status(200).json({
- status: 200,
- creator: "Vortex Apis",
- data: { response }
- });
- } catch (error) {
- res.status(500).json({ error: error.message });
- }
-});
-
-// Endpoint untuk blackboxAIChat
-app.get('/api/blackboxAIChat', async (req, res) => {
- try {
- const message = req.query.message;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
- }
- const response = await ptz.blackboxAIChat(message);
- res.status(200).json({
- status: 200,
- creator: "Vortex Apis",
- data: { response }
- });
- } catch (error) {
- res.status(500).json({ error: error.message });
- }
-});
-
-app.get("/api/gpt", async (req, res) => {
-const text = req.query.text;
-
-if (!text) {
-return res.status(400).send("Parameter 'text' is required.");
-}
-
-
-
-try {
-const requestData = {
-operation: "chatExecute",
-params: {
-text: text,
-languageId: "6094f9b4addddd000c04c94b",
-toneId: "60572a649bdd4272b8fe358c",
-voiceId: ""
-}
-};
-
-const config = {
-headers: {
-Accept: "application/json, text/plain, */*",
-Authentication: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTZjMjFhMGE1NTNiNjE1MDhmNWIxOSIsImlhdCI6MTcxMjc2NzUxNH0.qseE0iNl-4bZrpQoB-zxVsc-pz13l3JOKkg4u6Y08OY",
-"Content-Type": "application/json"
-}
-};
-let {data} = await axios.post("https://api.rytr.me/", requestData, config)
-data.data.content = data.data.content.replace(/<\/?p[^>]*>/g, '');
-res.json(data);
-} catch (error) {
-console.error(error);
-res.status(500).send("Internal Server Error");
-}
-});
-
-
-app.use((req, res, next) => {
+// Middleware 404
+app.use((req, res) => {
  res.status(404).send("Halaman tidak ditemukan");
 });
 
+// Middleware error handling
 app.use((err, req, res, next) => {
  console.error(err.stack);
  res.status(500).send('Ada kesalahan pada server');
 });
 
+// Jalankan server
 app.listen(port, () => {
  console.log(`Server berjalan di http://localhost:${port}`);
 });
