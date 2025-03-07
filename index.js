@@ -134,7 +134,6 @@ app.get('/api/tobase64', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-});
 
 try {
 const requestData = {
