@@ -3,5 +3,5 @@ module.exports = {
  smartContract: require('./scraper/smartContract'),
  ragBot: require('./scraper/ragBot'),
  degreeGuru: require('./scraper/degreeGuru'),
- tobase64: require('./scraper/tobase64') // Menambahkan fitur tobase64
-};
+ tobase64: require('./scraper/tobase64')
+}
