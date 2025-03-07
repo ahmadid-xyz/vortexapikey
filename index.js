@@ -4,7 +4,6 @@ const secure = require("ssl-express-www");
 const os = require("os");
 const path = require("path");
 const fs = require("fs");
-const multer = require("multer");
 const ptz = require("./function/index");
 
 const app = express();
