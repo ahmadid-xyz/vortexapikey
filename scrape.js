@@ -98,13 +98,14 @@ async function generateBrat(text) {
     // Tulis teks di tengah canvas
     ctx.fillText(text, width / 2, height / 2);
 
-    // Simpan gambar
-    const filePath = path.join(__dirname, 'brat.png');
+    // Simpan file ke /tmp/
+    const filePath = path.join('/tmp', 'brat.png'); // Ubah path ke /tmp/
     const buffer = canvas.toBuffer('image/png');
     fs.writeFileSync(filePath, buffer);
 
     return filePath;
 }
+
 
 async function searchImage(query) {
     const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
