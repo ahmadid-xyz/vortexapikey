@@ -54,6 +54,23 @@ app.get('/api/lahelu', async (req, res) => {
  }
 });
 
+app.get('/api/search-image', async (req, res) => {
+    const { query } = req.query;
+
+    if (!query) {
+        return res.status(400).json({ status: false, error: "Query parameter 'query' is required" });
+    }
+
+    try {
+        const { searchImage } = require('./scrape');
+        const images = await searchImage(query);
+
+        res.status(200).json({ status: true, creator: "Vortex Apis", images });
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message });
+    }
+});
+
 app.get('/api/utf8', (req, res) => {
     const { encodedText } = req.query;
 
