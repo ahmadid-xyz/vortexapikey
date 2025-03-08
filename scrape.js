@@ -47,6 +47,10 @@ async function ttstalk(username) {
  }
 }
 
+function toBase64(text) {
+    return Buffer.from(text).toString('base64');
+}
+
 function viooai(content, user, prompt, imageBuffer) {
  return new Promise(async (resolve, reject) => {
  const payload = {
@@ -462,5 +466,6 @@ module.exports = {
  pin,
  ffStalk,
  createPayment,
- cekStatus
+ cekStatus,
+ toBase64
 }
