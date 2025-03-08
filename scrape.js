@@ -81,31 +81,57 @@ function viooai(content, user, prompt, imageBuffer) {
  }
 
 async function generateBrat(text) {
-    const width = 800, height = 400;
-    const canvas = createCanvas(width, height);
+    const size = 800; // Ukuran 1:1 (800x800)
+    const canvas = createCanvas(size, size);
     const ctx = canvas.getContext('2d');
 
     // Background putih
     ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, size, size);
 
-    // Teks warna hitam
+    // Teks warna hitam dengan font bawaan
     ctx.fillStyle = '#000000';
-    ctx.font = 'bold 50px Arial';
+    ctx.font = 'bold 60px sans-serif'; // Ukuran font lebih kecil biar pas
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    // Tulis teks di tengah canvas
-    ctx.fillText(text, width / 2, height / 2);
+    // Tulis teks di tengah canvas, dengan auto-wrap
+    const maxWidth = size - 100; // Batas panjang teks
+    wrapText(ctx, text, size / 2, size / 2, maxWidth, 80);
 
     // Simpan file ke /tmp/
-    const filePath = path.join('/tmp', 'brat.png'); // Ubah path ke /tmp/
+    const filePath = path.join('/tmp', 'brat.png');
     const buffer = canvas.toBuffer('image/png');
     fs.writeFileSync(filePath, buffer);
 
     return filePath;
 }
 
+// Fungsi auto-wrap teks biar gak keluar gambar
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    let lines = [];
+
+    for (let i = 0; i < words.length; i++) {
+        let testLine = line + words[i] + ' ';
+        let metrics = ctx.measureText(testLine);
+        let testWidth = metrics.width;
+
+        if (testWidth > maxWidth && i > 0) {
+            lines.push(line);
+            line = words[i] + ' ';
+        } else {
+            line = testLine;
+        }
+    }
+    lines.push(line);
+
+    let startY = y - (lines.length - 1) * (lineHeight / 2);
+    for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, startY + i * lineHeight);
+    }
+}
 
 async function searchImage(query) {
     const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
