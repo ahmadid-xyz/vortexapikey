@@ -92,6 +92,24 @@ app.get('/api/utf8', (req, res) => {
     }
 });
 
+app.get('/api/brat', async (req, res) => {
+    const { text } = req.query;
+
+    if (!text) {
+        return res.status(400).json({ status: false, error: "Query parameter 'text' is required" });
+    }
+
+    try {
+        const imagePath = await generateBrat(text);
+        res.sendFile(imagePath, () => {
+            // Hapus file setelah dikirim biar gak numpuk
+            fs.unlinkSync(imagePath);
+        });
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message });
+    }
+});
+
 app.get('/api/toBase64', (req, res) => {
     const { text } = req.query;
 
