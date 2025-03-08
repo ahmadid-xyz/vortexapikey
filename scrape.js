@@ -78,6 +78,28 @@ function viooai(content, user, prompt, imageBuffer) {
  })
  }
 
+async function searchImage(query) {
+    const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
+
+    const { data } = await axios.get(url, {
+        headers: {
+            "User-Agent": "Mozilla/5.0"
+        }
+    });
+
+    const $ = cheerio.load(data);
+    let images = [];
+
+    $('img').each((i, elem) => {
+        const imgUrl = $(elem).attr('src');
+        if (imgUrl && imgUrl.startsWith('http')) {
+            images.push(imgUrl);
+        }
+    });
+
+    return images.length ? images.slice(0, 10) : 'No images found';
+}
+
 async function githubSearch(query, page = 1, lang = '') {
 	try {
 		const res = await axios.get(`https://github.com/search?q=${query}&type=repositories&p=${page}&l=${lang}`)
@@ -472,5 +494,6 @@ module.exports = {
  createPayment,
  cekStatus,
  toBase64,
- utf8
+ utf8,
+ searchImage
 }
