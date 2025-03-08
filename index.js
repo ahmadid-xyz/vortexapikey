@@ -54,6 +54,27 @@ app.get('/api/lahelu', async (req, res) => {
  }
 });
 
+app.get('/api/utf8', (req, res) => {
+    const { encodedText } = req.query;
+
+    if (!encodedText) {
+        return res.status(400).json({ status: false, error: "Query parameter 'encodedText' is required" });
+    }
+
+    try {
+        const { utf8 } = require('./scrape');
+        const decodedText = utf8(encodedText);
+
+        res.status(200).json({
+            status: true,
+            creator: 'Vortex Apis',
+            decodedText: decodedText
+        });
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message });
+    }
+});
+
 app.get('/api/toBase64', (req, res) => {
     const { text } = req.query;
 
