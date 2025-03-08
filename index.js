@@ -54,6 +54,27 @@ app.get('/api/lahelu', async (req, res) => {
  }
 });
 
+app.get('/api/toBase64', (req, res) => {
+    const { text } = req.query;
+
+    if (!text) {
+        return res.status(400).json({ status: false, error: "Query parameter 'text' is required" });
+    }
+
+    try {
+        const { toBase64 } = require('./scrape');
+        const base64Text = toBase64(text);
+        
+        res.status(200).json({
+            status: true,
+            creator: 'Vortex Apis',
+            base64: base64Text
+        });
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message });
+    }
+});
+
 app.get('/api/githubSearch', async (req, res) => {
  const { q } = req.query;
 
