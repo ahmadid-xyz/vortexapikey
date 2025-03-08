@@ -51,6 +51,10 @@ function toBase64(text) {
     return Buffer.from(text).toString('base64');
 }
 
+function utf8(encodedText) {
+    return Buffer.from(encodedText, 'base64').toString('utf-8');
+}
+
 function viooai(content, user, prompt, imageBuffer) {
  return new Promise(async (resolve, reject) => {
  const payload = {
@@ -467,5 +471,6 @@ module.exports = {
  ffStalk,
  createPayment,
  cekStatus,
- toBase64
+ toBase64,
+ utf8
 }
