@@ -111,6 +111,24 @@ app.get('/api/brat', async (req, res) => {
     }
 });
 
+app.get('/api/remove-bg', async (req, res) => {
+    const { imageUrl } = req.query;
+
+    if (!imageUrl) {
+        return res.status(400).json({ status: false, error: "Query parameter 'imageUrl' is required" });
+    }
+
+    try {
+        const { removeBackground } = require('./scrape');
+        const outputPath = await removeBackground(imageUrl);
+        res.sendFile(outputPath, () => {
+            fs.unlinkSync(outputPath);
+        });
+    } catch (error) {
+        res.status(500).json({ status: false, error: error.message });
+    }
+});
+
 app.get('/api/toBase64', (req, res) => {
     const { text } = req.query;
 
