@@ -4,6 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const { spawn } = require('child_process')
 const YTDL = require('@distube/ytdl-core')
+const cheerio = require('cheerio')
 
 async function laheluSearch(query) {
  let { data } = await axios.get(`https://lahelu.com/api/post/get-search?query=${query}&cursor=cursor`)
