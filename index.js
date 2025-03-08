@@ -100,6 +100,7 @@ app.get('/api/brat', async (req, res) => {
     }
 
     try {
+        const { generateBrat } = require('./scrape');
         const imagePath = await generateBrat(text);
         res.sendFile(imagePath, () => {
             // Hapus file setelah dikirim biar gak numpuk
