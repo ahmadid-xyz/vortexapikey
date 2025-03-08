@@ -5,7 +5,7 @@ const path = require('path')
 const { spawn } = require('child_process')
 const YTDL = require('@distube/ytdl-core')
 const cheerio = require('cheerio')
-const { createCanvas } = require('canvas')
+const { createCanvas, loadImage } = require('canvas')
 
 async function laheluSearch(query) {
  let { data } = await axios.get(`https://lahelu.com/api/post/get-search?query=${query}&cursor=cursor`)
@@ -79,6 +79,37 @@ function viooai(content, user, prompt, imageBuffer) {
  }
  })
  }
+
+async function removeBackground(imageUrl) {
+    const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+    const imageBuffer = Buffer.from(response.data, 'binary');
+    const image = await loadImage(imageBuffer);
+
+    const canvas = createCanvas(image.width, image.height);
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(image, 0, 0);
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];     // Red
+        const g = data[i + 1]; // Green
+        const b = data[i + 2]; // Blue
+        const a = data[i + 3]; // Alpha
+        if (r > 200 && g > 200 && b > 200) {
+            data[i + 3] = 0; 
+        }
+    }
+
+    ctx.putImageData(imageData, 0, 0);
+
+    const outputPath = path.join('/tmp', 'no-bg.png');
+    const buffer = canvas.toBuffer('image/png');
+    fs.writeFileSync(outputPath, buffer);
+
+    return outputPath;
+}
 
 async function generateBrat(text) {
     const size = 800; // Ukuran 1:1 (800x800)
@@ -551,5 +582,6 @@ module.exports = {
  toBase64,
  utf8,
  searchImage,
- generateBrat
+ generateBrat,
+ removeBackground
 }
