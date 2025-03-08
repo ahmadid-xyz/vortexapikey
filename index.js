@@ -93,6 +93,24 @@ app.get('/api/smartcontract', async (req, res) => {
  }
 });
 
+app.get('/api/viooai', async (req, res) => {
+  const { q } = req.query;
+
+  if (!q) {
+    return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
+  }
+
+  try {
+    const response = await viooai(q);    res.status(200).json({
+      status: true,
+      creator: 'vortex',
+      data: response
+    });
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message });
+  }
+});
+
 // Endpoint untuk blackboxAIChat
 app.get('/api/blackboxAIChat', async (req, res) => {
  try {
