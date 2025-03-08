@@ -2,7 +2,6 @@ var express = require("express"), cors = require("cors"), secure = require("ssl-
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
-const ptz = require('./function/index') 
 const axios = require('axios')
 
 var app = express();
@@ -36,131 +35,166 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
-app.get('/', (req, res) => {
- res.sendFile(path.join(__dirname, 'index.html'));
-});
+app.get('/api/lahelu', async (req, res) => {
+ const { q } = req.query;
 
-app.get('/api/ragbot', async (req, res) => {
- try {
- const message = req.query.message;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+ if (!q) {
+ return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
  }
- const response = await ptz.ragBot(message);
- res.status(200).json({
- status: 200,
- creator: "Vortex Apis",
- data: { response }
+
+ try {
+ const { laheluSearch } = require('./scrape')
+ const response = await laheluSearch(q); res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response
  });
  } catch (error) {
- res.status(500).json({ error: error.message });
- }
-});
-
-// Endpoint untuk degreeGuru
-app.get('/api/degreeguru', async (req, res) => {
- try {
- const { message }= req.query;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
- }
- const response = await ptz.degreeGuru(message);
- res.status(200).json({
- status: 200,
- creator: "Vortex Apis",
- data: { response }
- });
- } catch (error) {
- res.status(500).json({ error: error.message });
+ res.status(500).json({ status: false, error: error.message });
  }
 });
 
-// Endpoint untuk smartContract
-app.get('/api/smartcontract', async (req, res) => {
- try {
- const message = req.query.message;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+app.get('/api/githubSearch', async (req, res) => {
+ const { q } = req.query;
+
+ if (!q) {
+ return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
  }
- const response = await ptz.smartContract(message);
- res.status(200).json({
- status: 200,
- creator: "Vortex Apis",
- data: { response }
+
+ try {
+ const { githubSearch } = require('./scrape')
+ const response = await githubSearch(q); res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response
  });
  } catch (error) {
- res.status(500).json({ error: error.message });
+ res.status(500).json({ status: false, error: error.message });
+ }
+});
+
+app.get('/api/pin', async (req, res) => {
+ const { q } = req.query;
+ if (!q) {
+ return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
+ }
+
+ try {
+ const { pin } = require('./scrape')
+ const response = await pin(q);
+ res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response
+ });
+ } catch (error) {
+ res.status(500).json({ status: false, error: error.message });
+ }
+});
+
+app.get('/api/ttstalk', async (req, res) => {
+ const { q } = req.query;
+ if (!q) {
+ return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
+ }
+ try {
+ const { ttstalk } = require('./scrape')
+ const response = await ttstalk(q); res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response
+ });
+ } catch (error) {
+ res.status(500).json({ status: false, error: error.message });
+ }
+});
+
+app.get('/api/npmStalk', async (req, res) => {
+ const { q } = req.query;
+
+ if (!q) {
+ return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
+ }
+
+ try {
+ const { npmStalk } = require('./scrape')
+ const response = await npmStalk(q); res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response
+ });
+ } catch (error) {
+ res.status(500).json({ status: false, error: error.message });
+ }
+});
+
+app.get('/api/ffStalk', async (req, res) => {
+ const { q } = req.query;
+ if (!q) {
+ return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
+ }
+ try {
+ const { ffStalk } = require('./scrape')
+ const response = await ffStalk.stalk(q);
+ res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response
+ });
+ } catch (error) {
+ res.status(500).json({ status: false, error: error.message });
  }
 });
 
 app.get('/api/viooai', async (req, res) => {
-  const { q } = req.query;
+ const { q } = req.query;
 
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
-  }
-
-  try {
-    const response = await viooai(q);    res.status(200).json({
-      status: true,
-      creator: 'vortex',
-      data: response
-    });
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message });
-  }
-});
-
-// Endpoint untuk blackboxAIChat
-app.get('/api/blackboxAIChat', async (req, res) => {
- try {
- const message = req.query.message;
- if (!message) {
- return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+ if (!q) {
+ return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
  }
- const response = await ptz.blackboxAIChat(message);
- res.status(200).json({
- status: 200,
- creator: "Vortex Apis",
- data: { response }
+
+ try {
+ const { viooai } = require('./scrape')
+ const response = await viooai(q); res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response
  });
  } catch (error) {
- res.status(500).json({ error: error.message });
+ res.status(500).json({ status: false, error: error.message });
  }
 });
 
-app.get("/api/gpt", async (req, res) => {
-const text = req.query.text;
+app.get('/api/orkut/createPayment', async (req, res) => {
+ const { amount, codeqr } = req.query;
 
-if (!text) {
-return res.status(400).send("Parameter 'text' is required.");
-}
+ if (!amount) {
+ return res.status(400).json({ status: false, error: "Tolong masukkan harganya" });
+ }
+ if (!codeqr) {
+ return res.status(400).json({ status: false, error: "Tolong masukkan codeqr" });
+ }
 
-try {
-const requestData = {
-operation: "chatExecute",
-params: {
-text: text,
-languageId: "6094f9b4addddd000c04c94b",
-toneId: "60572a649bdd4272b8fe358c",
-voiceId: ""
-}
-};
+ try {
+ const { createPayment } = require('./scrape')
+ const response = await createPayment(amount, codeqr); 
+ res.status(200).json({
+ status: true,
+ creator: 'Vortex Apis',
+ data: response.result
+ });
+ } catch (error) {
+ res.status(500).json({ status: false, error: error.message });
+ }
+});
 
-const config = {
-headers: {
-Accept: "application/json, text/plain, */*",
-Authentication: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MTZjMjFhMGE1NTNiNjE1MDhmNWIxOSIsImlhdCI6MTcxMjc2NzUxNH0.qseE0iNl-4bZrpQoB-zxVsc-pz13l3JOKkg4u6Y08OY",
-"Content-Type": "application/json"
-}
-};
-let {data} = await axios.post("https://api.rytr.me/", requestData, config)
-data.data.content = data.data.content.replace(/<\/?p[^>]*>/g, '');
-res.json(data);
-} catch (error) {
-console.error(error);
-res.status(500).send("Internal Server Error");
-}
+app.use((req, res, next) => {
+ res.status(404).send("Halaman tidak ditemukan");
+});
+
+app.use((err, req, res, next) => {
+ console.error(err.stack);
+ res.status(500).send('Ada kesalahan pada server');
 });
 
 
