@@ -5,6 +5,7 @@ const path = require('path')
 const { spawn } = require('child_process')
 const YTDL = require('@distube/ytdl-core')
 const cheerio = require('cheerio')
+const { createCanvas } = require('canvas')
 
 async function laheluSearch(query) {
  let { data } = await axios.get(`https://lahelu.com/api/post/get-search?query=${query}&cursor=cursor`)
@@ -78,6 +79,32 @@ function viooai(content, user, prompt, imageBuffer) {
  }
  })
  }
+
+async function generateBrat(text) {
+    const width = 800, height = 400;
+    const canvas = createCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+
+    // Background putih
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, width, height);
+
+    // Teks warna hitam
+    ctx.fillStyle = '#000000';
+    ctx.font = 'bold 50px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Tulis teks di tengah canvas
+    ctx.fillText(text, width / 2, height / 2);
+
+    // Simpan gambar
+    const filePath = path.join(__dirname, 'brat.png');
+    const buffer = canvas.toBuffer('image/png');
+    fs.writeFileSync(filePath, buffer);
+
+    return filePath;
+}
 
 async function searchImage(query) {
     const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
@@ -496,5 +523,6 @@ module.exports = {
  cekStatus,
  toBase64,
  utf8,
- searchImage
+ searchImage,
+ generateBrat
 }
