@@ -6,6 +6,7 @@ const { spawn } = require('child_process')
 const YTDL = require('@distube/ytdl-core')
 const cheerio = require('cheerio')
 const { createCanvas, loadImage } = require('canvas')
+const ytSearch = require('yt-search')
 
 async function laheluSearch(query) {
  let { data } = await axios.get(`https://lahelu.com/api/post/get-search?query=${query}&cursor=cursor`)
@@ -255,6 +256,34 @@ async function githubSearch(query, page = 1, lang = '') {
 	} catch (e) {
 		throw e
 	}
+}
+
+async function ytsearch(query) {
+try {
+const searchResults = await ytSearch.search(query)
+const videos = searchResults.videos.map(video => ({
+title: video.title,
+description: video.description,
+url: video.url,
+videoId: video.videoId,
+timestamp: video.timestamp,
+duration: video.duration,
+ago: video.ago,
+views: video.views,
+author: {
+name: video.author.name,
+url: video.author.url,
+verified: video.author.verified
+},
+image: video.image,
+thumbnail: video.thumbnail
+}))
+
+return videos
+} catch (error) {
+console.error("Error during YouTube search:", error)
+return []
+}
 }
 
 async function npmStalk(pname) {
