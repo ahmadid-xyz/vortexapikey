@@ -630,5 +630,6 @@ module.exports = {
  searchImage,
  generateBrat,
  removeBackground,
- ChatGPT
+ ChatGPT,
+ islamai
 }
