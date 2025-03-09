@@ -6,13 +6,13 @@
  "use": "@vercel/node"
  },
  {
- "src": "./systems/index.html",
+ "src": "index.html",
  "use": "@vercel/static"
  }
  ],
  "routes": [
  {
- "src": "systems/api/(.*)",
+ "src": "/api/(.*)",
  "dest": "/index.js"
  },
  {
