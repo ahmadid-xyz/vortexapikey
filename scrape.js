@@ -81,6 +81,20 @@ function viooai(content, user, prompt, imageBuffer) {
  })
  }
 
+async function bingI(query) {
+const response = await axios.get(`https://www.bing.com/images/search?q=${query}`);
+const html = response.data;
+const $ = cheerio.load(html);
+const urls = [];
+$(".imgpt > a").each((i, el) => {
+urls[i] = $(el).attr("href");
+});
+const results = urls.map(url => ({
+photo: `https://www.bing.com${url}`
+}));
+return results;
+}
+
 async function islamai(question) {
 const url = 'https://vercel-server-psi-ten.vercel.app/chat'
 const data = {
@@ -683,5 +697,6 @@ module.exports = {
  ChatGPT,
  islamai,
  ytsearch,
- bratv2
+ bratv2,
+ bingI
 }
