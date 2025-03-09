@@ -660,5 +660,6 @@ module.exports = {
  generateBrat,
  removeBackground,
  ChatGPT,
- islamai
+ islamai,
+ ytsearch
 }
