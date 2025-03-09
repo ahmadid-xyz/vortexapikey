@@ -11,6 +11,14 @@ app.use(cors());
 app.use(secure);
 const port = 3000;
 
+function Enc(type) {
+  return encodeURIComponent(type)
+}
+
+function Dec(type) {
+  return decodeURIComponent(type)
+}
+
 app.get('/stats', (req, res) => {
  const stats = {
  platform: os.platform(),
