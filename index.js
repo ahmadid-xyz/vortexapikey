@@ -148,6 +148,23 @@ app.get('/api/utf8', (req, res) => {
     }
 });
 
+app.get('/api/bratv2', async (req, res) => {
+  const { q } = req.query
+  if (!q) {
+    return res.status(400).json({ status: false, error: "Query is required" })
+  }
+  try {
+    const { bratv2 } = require('./scrape')
+    const bratImage = await bratv2(`${Enc(q)}`)
+    const base64Image = bratImage.split(',')[1]
+    const imageBuffer = Buffer.from(base64Image, 'base64')
+    res.setHeader('Content-Type', 'image/png')
+    res.send(imageBuffer)
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message })
+  }
+});
+
 app.get('/api/brat', async (req, res) => {
     const { text } = req.query;
 
