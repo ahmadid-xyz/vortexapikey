@@ -612,5 +612,6 @@ module.exports = {
  utf8,
  searchImage,
  generateBrat,
- removeBackground
+ removeBackground,
+ ChatGPT
 }
