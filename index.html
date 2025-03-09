@@ -1,246 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Vor Apis | Next-Gen Interface</title>
- <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
- <style>
- :root {
- --main-color: #00f3ff;
- --secondary-color: #ff00ff;
- --bg-color: #0a0a1a;
- }
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Free Rest Api.">
+<meta name="author" content="Vor API">
+<meta property="og:image" content="">
+<title>Next Generation Apis</title>
+<script src="https://kit.fontawesome.com/5367cb78eb.js" crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="https://files.catbox.moe/7hm4hj.jpg"/> 
+<link href="https://zeltoria.github.io/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://zeltoria.github.io/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="https://zeltoria.github.io/css/default.css" rel="stylesheet">
+<link href="https://zeltoria.github.io/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gluten:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
- * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
- }
+<style>
+* {
+font-family: "Share Tech Mono";
+}
+</style>
 
- body {
- background: var(--bg-color);
- font-family: 'Exo 2', sans-serif;
- color: #fff;
- overflow: hidden;
- position: relative;
- min-height: 100vh;
- }
-
- .particles-bg {
- position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- z-index: -1;
- }
-
- .container {
- padding: 2rem;
- text-align: center;
- position: relative;
- z-index: 1;
- }
-
- .header {
- margin: 5rem 0;
- animation: fadeIn 2s ease-in;
- }
-
- h1 {
- font-family: 'Orbitron', sans-serif;
- font-size: 4rem;
- background: linear-gradient(45deg, var(--main-color), var(--secondary-color));
- -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;
- text-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
- margin-bottom: 1rem;
- }
-
- .description {
- font-size: 1.2rem;
- max-width: 600px;
- margin: 0 auto 3rem;
- line-height: 1.6;
- opacity: 0.9;
- }
-
- .main-btn {
- padding: 1.5rem 3rem;
- font-size: 1.5rem;
- background: linear-gradient(45deg, var(--main-color), var(--secondary-color));
- border: none;
- border-radius: 50px;
- color: #fff;
- cursor: pointer;
- transition: all 0.3s ease;
- position: relative;
- overflow: hidden;
- margin: 2rem 0;
- }
-
- .main-btn:hover {
- transform: scale(1.1);
- box-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
- }
-
- .status-panel {
- background: rgba(255, 255, 255, 0.05);
- padding: 2rem;
- border-radius: 15px;
- backdrop-filter: blur(10px);
- max-width: 500px;
- margin: 3rem auto;
- border: 1px solid var(--main-color);
- }
-
- .system-status {
- text-align: left;
- margin: 1rem 0;
- }
-
- .features-grid {
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
- gap: 2rem;
- padding: 2rem;
- max-width: 1200px;
- margin: 0 auto;
- }
-
- .feature-card {
- background: rgba(255, 255, 255, 0.05);
- padding: 2rem;
- border-radius: 15px;
- transition: all 0.3s ease;
- border: 1px solid transparent;
- }
-
- .feature-card:hover {
- transform: translateY(-10px);
- border-color: var(--main-color);
- box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
- }
-
- @keyframes fadeIn {
- from { opacity: 0; transform: translateY(50px); }
- to { opacity: 1; transform: translateY(0); }
- }
-
- .battery-status {
- width: 100%;
- height: 20px;
- background: rgba(255, 255, 255, 0.1);
- border-radius: 10px;
- overflow: hidden;
- position: relative;
- }
-
- .battery-fill {
- height: 100%;
- background: linear-gradient(90deg, var(--main-color), var(--secondary-color));
- transition: width 0.5s ease;
- }
-
- .cyber-line {
- position: absolute;
- width: 100%;
- height: 2px;
- background: linear-gradient(90deg, transparent, var(--main-color), transparent);
- animation: scan 3s infinite linear;
- }
-
- @keyframes scan {
- 0% { top: 0; }
- 100% { top: 100%; }
- }
- </style>
 </head>
-<body>
- <div id="particles-js" class="particles-bg"></div>
- 
- <div class="container">
- <div class="header">
- <h1>VOR APIS</h1>
- <p class="description">Dapatkan API Secara Gratis<br>No Ribet Dan Tanpa Login.</p>
- 
- <div class="status-panel">
- <div class="system-status">
- <h3>SYSTEM STATUS</h3>
- <div class="cyber-line"></div>
- <p>Battery Level: <span id="battery-level">Loading...</span></p>
- <div class="battery-status">
- <div class="battery-fill" id="battery-fill"></div>
- </div>
- <p>System Readiness: <span id="system-readiness">87%</span></p>
- <div class="progress-bar">
- <div class="progress-fill" style="width: 87%"></div>
- </div>
- </div>
- </div>
- <a href="/systems/">
- <button class="main-btn">STARS NOW</button>
- </a>
- </div>
 
- <div class="features-grid">
- <div class="feature-card">
- <h3>Keunggulan</h3>
- <p>Memiliki Api Yang Keren Untuk Kebutuhan Aplikasi Kamu Dan Bot WhatsApp</p>
+<body id="page-top" class="dark-mode">
+<div id="wrapper">
+
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+<img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle shadow-4"style="width: 50px;" alt="Avatar" />
+<div class="sidebar-brand-text mx-3">Vor Apis</div>
+</a>
+<hr class="sidebar-divider my-0">
+<li class="nav-item active">
+<a class="nav-link" href="#">
+<i class="fas fa-fw fa-thermometer-three-quarters"></i>
+<span>STATUS</span></a>
+</li>
+<hr class="sidebar-divider">
+<div class="sidebar-heading">
+Api
+</div>
+<li class="nav-item">
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ai" aria-expanded="true" aria-controls="collapseBootstrap">
+<i class="fa fa-robot"></i>
+<span>Ai</span>
+</a>
+<div id="ai" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+<div class="py-2 collapse-inner rounded">
+<a class="collapse-item" href="api/viooai?q=hello" target="_blank">LuminAi</a>
+<a class="collapse-item" href="api/openai?q=halo" target="_blank">openAi</a>
+<a class="collapse-item" href="api/islamai?q=halo" target="_blank">IslamAi</a>
+</div>
+</div>
+</li>
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#search" aria-expanded="true" aria-controls="collapseBootstrap">
+<i class="fa fa-search"></i>
+<span>Search</span>
+</a>
+<div id="search" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+<div class="py-2 collapse-inner rounded">
+<a class="collapse-item" href="api/bingimg?q=kodok" target="_blank">bingImg</a>
+<a class="collapse-item" href="api/lahelu?q=anime" target="_blank">Lahelu</a>
+<a class="collapse-item" href="api/githubSearch?q=webapi" target="_blank">Github Search</a>
+<a class="collapse-item" href="api/pin?q=ikann" target="_blank">Pinterest</a>
+<a class="collapse-item" href="api/search-image?query=ikann" target="_blank">Search Image</a>
+<a class="collapse-item" href="api/yts?q=acumalaka" target="_blank">Youtube Search</a>
+</div>
+</div>
+</li>
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#stalk" aria-expanded="true" aria-controls="collapseBootstrap">
+<i class="fa fa-star"></i>
+<span>Stalk</span>
+</a>
+<div id="stalk" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+<div class="py-2 collapse-inner rounded">
+<div class="py-2 collapse-inner rounded">
+<a class="collapse-item" href="api/ttstalk?q=ikanngeming" target="_blank">Tiktok Stalk</a>
+<a class="collapse-item" href="api/npmStalk?q=ikanngeming" target="_blank">Npm Stalk</a>
+<a class="collapse-item" href="api/ffStalk?q=12345678" target="_blank">FF Stalk</a>
+</div>
+</div>
+</div>
+</li>
+
+<li class="nav-item">
+ <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseImage" aria-expanded="true" aria-controls="collapseTable">
+ <i class="fa fa-fw fa-cat"></i>
+ <span>Tools Api</span>
+ </a>
+ <div id="collapseImage" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+ <div class="py-2 collapse-inner rounded">
+ <h6 class="collapse-header">Tools & Convert</h6>
+ <a class="collapse-item" href="api/remove-bg?imageUrl=" target="_blank">Remove-bg</a>
+ <a class="collapse-item" href="api/bratv1?q=hai" target="_blank">Brat</a>
+<a class="collapse-item" href="api/bratv2?q=halo" target="_blank">BratV2</a>
+ <a class="collapse-item" href="api/utf8?encodedText=ZnVrdXNoaW1haWQ=" target="_blank">Utf8</a>
+ <a class="collapse-item" href="api/toBase64?text=hai" target="_blank">toBase64</a>
  </div>
- <div class="feature-card">
- <h3>Layanan Gratis</h3>
- <p>Nikmati Layanan Api Gratis Tanpa Berbayar Dan Tanpa Login Untuk Mempermudah Pengguna.</p>
  </div>
- <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
- <script>
- particlesJS('particles-js', {
- particles: {
- number: { value: 150 },
- color: { value: '#00f3ff' },
- shape: { type: 'circle' },
- opacity: { value: 0.5 },
- size: { value: 3 },
- move: {
- enable: true,
- speed: 2,
- direction: 'none',
- random: true,
- straight: false,
- out_mode: 'out',
- bounce: false
- }
- },
- interactivity: {
- detect_on: 'canvas',
- events: {
- onhover: { enable: true, mode: 'repulse' },
- onclick: { enable: true, mode: 'push' },
- resize: true
- }
- },
- retina_detect: true
- });
- if ('getBattery' in navigator) {
- navigator.getBattery().then(battery => {
- function updateBatteryStatus() {
- const batteryPercent = Math.floor(battery.level * 100);
- document.getElementById('battery-level').textContent = `${batteryPercent}%`;
- document.getElementById('battery-fill').style.width = `${batteryPercent}%`;
- }
- battery.addEventListener('levelchange', updateBatteryStatus);
- updateBatteryStatus();
- });
- } else {
- document.getElementById('battery-level').textContent = 'N/A';
- }
- let readiness = 87;
- const readinessElement = document.getElementById('system-readiness');
- setInterval(() => {
- readiness = (readiness >= 100) ? 87 : readiness + Math.random();
- readinessElement.textContent = `${Math.min(100, Math.floor(readiness))}%`;
- }, 3000);
- </script>
+ </li>
+
+<li class="nav-item">
+<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#orkut" aria-expanded="true" aria-controls="collapseBootstrap">
+<i class="fa fa-money"></i>
+<span>Orkut</span>
+</a>
+<div id="orkut" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+<div class="py-2 collapse-inner rounded">
+<div class="py-2 collapse-inner rounded">
+<a class="collapse-item" href="/api/orkut/createPayment?amount=&codeqr=" target="_blank">Create Payment</a>
+</div>
+</div>
+</div>
+</li>
+<hr class="sidebar-divider">
+</ul>
+
+<div id="content-wrapper" class="d-flex flex-column">
+<div id="content">
+
+<nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+<button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+<i class="fa fa-bars"></i>
+</button>
+<ul class="navbar-nav ml-auto">
+<li class="nav-item dropdown no-arrow">
+<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle shadow-4"style="width: 50px;" alt="Avatar" />
+<span class="ml-2 d-none d-lg-inline small font-weight-bold"></span>
+</a>
+</li>
+</ul>
+</nav>
+
+<div class="container-fluid" id="container-wrapper">
+<div class="card h-50 mb-4">
+<div class="card-body">
+<div class="row align-items-center">
+<div class="col mr-2">
+<div class="text-md-left font-weight-bold mb-2 text-primary">Project By</div>
+<div class="text-sm-left mb-0 font-weight-bold">Vortex Fukushima Team</div>
+</div>
+<div class="col-auto">
+<i class="fas fa-quote-right fa-2x text-primary"></i>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row mb-3">
+
+<div class="col-xl-3 col-md-6 mb-4">
+<div class="card h-50">
+<div class="card-body">
+<div class="row no-gutters align-items-center">
+<div class="col mr-2">
+<div class="text-xs font-weight-bold text-uppercase mb-1">Post</div>
+<span id="getawayCont" class="h5 mb-0 font-weight-bold">0 </span>
+</div>
+<div class="col-auto">
+<i class="fa fa-fire" ></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+<div class="card h-50">
+<div class="card-body">
+<div class="row no-gutters align-items-center">
+<div class="col mr-2">
+<div class="text-xs font-weight-bold text-uppercase mb-1">Battery</div>
+<span id="battery_level" class="h5 mb-0 font-weight-bold">100 </span>
+</div>
+<div class="col-auto">
+<i class="fa fa-battery-full" ></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xl-3 col-md-6 mb-4">
+<div class="card h-50">
+<div class="card-body">
+<div class="row no-gutters align-items-center">
+<div class="col mr-2">
+<div class="text-xs font-weight-bold text-uppercase mb-1">Time</div>
+<div class="h5 mb-0 font-weight-bold" id="row-no-guttersalign-items-center">Loading...</div>
+<div class="h5 mb-0 font-weight-bold" id="text-xsfont-weight-boldtext-uppercase-mb-1"></div>
+</div>
+<div class="col-auto">
+<i class="fas fa-calendar fa-2x text-primary"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-lg-12 text-center">Hub Kami
+<p>
+
+<a href="https://wa.me/6281527100923" class="btn btn-primary btn-sm ml-2" target="_blank"><i class="fa-brands fa-whatsapp"></i>&nbsp;Whatsapp</a>
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<footer class="sticky-footer">
+<div class="container my-auto">
+<div class="copyright text-center my-auto">
+Made by
+<a href="#" target="_blank" style="color: rgb(224, 32, 7);">Vor Apis</a>
+</span>
+</div>
+</div>
+</footer>
+
+</div>
+</div>
+
+
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+
+<script src="https://zeltoria.github.io/vendor/jquery/jquery.min.js"></script>
+<script src="https://zeltoria.github.io/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://zeltoria.github.io/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="https://zeltoria.github.io/js/ruang-admin.min.js"></script>
+<script src="https://zeltoria.github.io/js/menu.js"></script>
+<script>
+const countCollapseItem = document.querySelectorAll('.collapse-item').length;
+
+document.getElementById('getawayCont').textContent = `${countCollapseItem}`;
+</script>
+
 </body>
+
 </html>
