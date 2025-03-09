@@ -43,7 +43,7 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
-app.get('/api/bratv1', async (req, res) => {
+app.get('systems/api/bratv1', async (req, res) => {
   const { q } = req.query
   if (!q) {
     return res.status(400).json({ status: false, error: "Query is required" })
