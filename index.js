@@ -115,7 +115,7 @@ app.get('/api/remove-bg', async (req, res) => {
     const { imageUrl } = req.query;
 
     if (!imageUrl) {
-        return res.status(400).json({ status: false, error: "Query parameter 'imageUrl' is required" });
+        return res.status(400).json({ status: false, error: "Query parameter 'imageUrl' is required - Parameter kueri 'imageUrl' diperlukan" });
     }
 
     try {
