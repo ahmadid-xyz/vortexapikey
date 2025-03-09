@@ -158,6 +158,27 @@ async function removeBackground(imageUrl) {
     return outputPath;
 }
 
+async function bratv2(prompt) {
+const url = 'https://www.bestcalculators.org/wp-admin/admin-ajax.php'
+const headers = {
+'authority': 'www.bestcalculators.org',
+'accept': '*/*',
+'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+'origin': 'https://www.bestcalculators.org',
+'referer': 'https://www.bestcalculators.org/online-generators/brat-text-generator/',
+'user-agent': 'Postify/1.0.0',
+'x-requested-with': 'XMLHttpRequest'
+}
+const data = new URLSearchParams({
+'action': 'generate_brat_text',
+'text': prompt,
+'fontSize': "100",
+'blurLevel': "5"
+})
+const response = await axios.post(url, data.toString(), { headers })
+return `data:image/png;base64,${response.data}`
+}
+
 async function generateBrat(text) {
     const size = 800; // Ukuran 1:1 (800x800)
     const canvas = createCanvas(size, size);
@@ -661,5 +682,6 @@ module.exports = {
  removeBackground,
  ChatGPT,
  islamai,
- ytsearch
+ ytsearch,
+ bratv2
 }
