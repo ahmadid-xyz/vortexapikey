@@ -127,7 +127,7 @@ app.get('/api/bratv1', async (req, res) => {
     return res.status(400).json({ status: false, error: "Query is required" })
   }
   try {
-    const response = await axios.get(`https://brat.caliphdev.com/api/brat?text=${Enc(q)}`, { responseType: 'arraybuffer' })
+    const response = await axios.get(`https://fastrestapis.fasturl.cloud/maker/brat/animated?text=${Enc(q)}&mode=animated`, { responseType: 'arraybuffer' })
     res.setHeader('Content-Type', 'image/png')
     res.send(response.data)
   } catch (error) {
