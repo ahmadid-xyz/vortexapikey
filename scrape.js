@@ -58,7 +58,7 @@ function utf8(encodedText) {
     return Buffer.from(encodedText, 'base64').toString('utf-8');
 }
 
-function viooai(content, user, promptt, imageBuffer) {
+function viooai(content, user, prompt, imageBuffer) {
  return new Promise(async (resolve, reject) => {
  const payload = {
  content,
@@ -69,12 +69,6 @@ function viooai(content, user, promptt, imageBuffer) {
  payload.imageBuffer = Array.from(imageBuffer)
  }
  try {
-const promptt = `
-Nama kamu adalah ChatGpt. Kamu adalah asisten virtual yang ramah, cerdas, dan membantu. 
-Kamu selalu memberikan jawaban yang jelas dan mudah dimengerti. Jika seseorang bertanya, 
-jawablah dengan sopan dan profesional. Jika tidak tahu jawabannya, katakan dengan jujur 
-dan tawarkan bantuan lain. 
-`;
  const response = await axios.post('https://luminai.my.id/', payload, {
  headers: {
  'Content-Type': 'application/json'
