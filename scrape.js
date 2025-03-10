@@ -85,8 +85,8 @@ async function BratGenerator(teks) {
   let width = 512;
   let height = 512;
   let margin = 20;
-  let wordSpacing = 50; 
-  
+  let wordSpacing = 50;
+
   let canvas = createCanvas(width, height);
   let ctx = canvas.getContext('2d');
 
@@ -133,7 +133,7 @@ async function BratGenerator(teks) {
     ctx.font = `${fontSize}px Sans-serif`;
     rebuildLines();
   }
-  
+
   let lineHeight = fontSize * lineHeightMultiplier;
   let y = margin;
 
@@ -145,11 +145,11 @@ async function BratGenerator(teks) {
       ctx.fillText(word, x, y);
       x += ctx.measureText(word).width + wordSpacing;
     }
-    
+
     y += lineHeight;
   }
 
-  let buffer = canvas.toBuffer('function/png');
+  let buffer = canvas.toBuffer('image/png');
   let image = await Jimp.read(buffer);
 
   image.blur(3);
@@ -775,5 +775,6 @@ module.exports = {
  islamai,
  ytsearch,
  bratv2,
- bingI
+ bingI,
+ BratGenerator
 }
