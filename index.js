@@ -73,6 +73,20 @@ app.get('/api/bratv1', async (req, res) => {
   }
 });
 
+app.get('/api/generate', async (req, res) => {
+  let teks = req.query.teks || 'Default Text';
+  
+  try {
+    const { BratGenerator } = require('./scrape')
+    let imageBuffer = await BratGenerator(teks);
+    res.setHeader('Content-Type', 'image/png');
+    res.send(imageBuffer);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Terjadi kesalahan');
+  }
+});
+
 app.get("/api/openai", async (req, res) => {
   const { q } = req.query
   if (!q) {
