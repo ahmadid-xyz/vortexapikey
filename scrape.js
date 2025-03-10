@@ -70,8 +70,6 @@ function viooai(content, user, aiName, prompt, imageBuffer) {
  }
  try {
  const response = await axios.post('https://luminai.my.id/',
- const aiName = "ViooAI",
- const prompt = `Ingat, kamu adalah ${aiName}. ${userInput}`,
  payload, {
  headers: {
  'Content-Type': 'application/json'
