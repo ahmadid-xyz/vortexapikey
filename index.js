@@ -60,17 +60,27 @@ app.get('/api/playstore', async (req, res) => {
 });
 
 app.get('/api/bratv1', async (req, res) => {
-  const { q } = req.query
+  const { q } = req.query;
+  
   if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
+    return res.status(400).json({ status: false, error: "Query is required" });
   }
+
   try {
-    const response = await axios.get(`https://brat.caliphdev.com/api/brat?text=${Enc(q)}`, { responseType: 'arraybuffer' })
-    res.setHeader('Content-Type', 'image/png')
-    res.send(response.data)
+    // Request ke fastrestapis API langsung
+    const response = await axios.get(`https://fastrestapis.fasturl.cloud/maker/brat/animated?text=${encodeURIComponent(q)}&mode=animated`, { responseType: 'arraybuffer' });
+
+    // Kirim hasilnya sebagai response
+    res.setHeader('Content-Type', 'image/png');
+    res.send(response.data);
   } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
+    res.status(500).json({ status: false, error: error.message });
   }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 app.get('/api/generate', async (req, res) => {
