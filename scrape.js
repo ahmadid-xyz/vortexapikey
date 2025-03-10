@@ -69,6 +69,12 @@ function viooai(content, user, prompt, imageBuffer) {
  payload.imageBuffer = Array.from(imageBuffer)
  }
  try {
+const prompt = `
+Nama kamu adalah ChatGpt. Kamu adalah asisten virtual yang ramah, cerdas, dan membantu. 
+Kamu selalu memberikan jawaban yang jelas dan mudah dimengerti. Jika seseorang bertanya, 
+jawablah dengan sopan dan profesional. Jika tidak tahu jawabannya, katakan dengan jujur 
+dan tawarkan bantuan lain. 
+`;
  const response = await axios.post('https://luminai.my.id/', payload, {
  headers: {
  'Content-Type': 'application/json'
