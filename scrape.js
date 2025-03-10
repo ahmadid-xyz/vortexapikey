@@ -58,7 +58,7 @@ function utf8(encodedText) {
     return Buffer.from(encodedText, 'base64').toString('utf-8');
 }
 
-function viooai(content, user, aiName, prompt, imageBuffer) {
+function viooai(content, user, prompt, imageBuffer) {
  return new Promise(async (resolve, reject) => {
  const payload = {
  content,
