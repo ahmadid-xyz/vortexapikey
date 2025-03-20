@@ -1,255 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Free Rest Api.">
-<meta name="author" content="Vor API">
-<meta property="og:image" content="">
-<title>Next Generation Apis</title>
-<script src="https://kit.fontawesome.com/5367cb78eb.js" crossorigin="anonymous"></script>
-<link rel="shortcut icon" href="https://files.catbox.moe/7hm4hj.jpg"/> 
-<link href="https://zeltoria.github.io/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link href="https://zeltoria.github.io/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="https://zeltoria.github.io/css/default.css" rel="stylesheet">
-<link href="https://zeltoria.github.io/css/style.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Gluten:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Next Generation APIs - Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
 
-<style>
-* {
-font-family: "Share Tech Mono";
-}
-</style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f1f4f9;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+    }
+   
+    .sidebar {
+      background: #1f2937;
+      min-height: 100vh;
+      color: #cbd5e1;
+    }
+    .sidebar .nav-link {
+      color: #cbd5e1;
+      transition: background 0.3s, color 0.3s;
+    }
+    .sidebar .nav-link:hover, .sidebar .nav-link.active {
+      background: #374151;
+      color: #fff;
+    }
+    .sidebar .sidebar-brand {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #374151;
+    }
+    .sidebar img {
+      width: 50px;
+      margin-bottom: 0.5rem;
+    }
+  
+    .navbar {
+      background: #fff;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+  
+    .card {
+      border: none;
+      border-radius: 0.75rem;
+      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .card-title {
+      font-weight: 700;
+    }
+ 
+    .footer {
+      background: #fff;
+      padding: 1rem;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+    }
 
+    .scroll-to-top {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: #1f2937;
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    .scroll-to-top:hover {
+      background: #374151;
+    }
+  </style>
 </head>
+<body id="top">
+  <div class="d-flex">
+    <nav class="sidebar p-3">
+      <div class="sidebar-brand">
+        <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" alt="Avatar">
+        <div>Vor APIs</div>
+      </div>
+      <ul class="nav flex-column mt-4">
+        <li class="nav-item mb-2">
+          <a class="nav-link active" href="#">
+            <i class="fas fa-thermometer-three-quarters me-2"></i>
+            STATUS
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <button class="btn btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#apiModal">
+            <i class="fas fa-list me-2"></i> Lihat Semua API
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <div class="flex-grow-1">
+      <nav class="navbar navbar-expand navbar-light mb-4">
+        <div class="container-fluid">
+          <button class="btn btn-outline-secondary" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" style="width: 40px;" alt="Avatar">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="#">Profil</a></li>
+                <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Keluar</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="container-fluid">
+        <div class="mb-4">
+          <h2 class="fw-bold">Dashboard API</h2>
+          <p class="text-muted">Selamat datang! Klik tombol "Go To Api" pada sidebar menu untuk mengeksplorasi seluruh layanan API kami.</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-primary">Project Oleh</h5>
+                <p class="card-text">Vortex Fukushima Team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h6 class="text-muted">Post</h6>
+                <h4 id="postCount" class="fw-bold">0</h4>
+                <i class="fas fa-fire fa-2x text-warning"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h6 class="text-muted">Battery</h6>
+                <h4 id="batteryLevel" class="fw-bold">100%</h4>
+                <i class="fas fa-battery-full fa-2x text-success"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h6 class="text-muted">Waktu</h6>
+                <h4 id="currentTime" class="fw-bold">Loading...</h4>
+                <i class="fas fa-calendar fa-2x text-primary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <p class="fw-bold">Dukung Kami</p>
+            <a href="https://whatsapp.com/channel/0029VaxL7402ZjCmqq6FjE1C" class="btn btn-primary btn-sm" target="_blank">
+              <i class="fab fa-whatsapp"></i> Whatsapp
+            </a>
+          </div>
+        </div>
+      </div>
+      <footer class="footer mt-auto">
+        <div class="container">
+          <span class="text-muted">Made by <a href="#" style="color: #d82007;">Vor APIs</a></span>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <div class="modal fade" id="apiModal" tabindex="-1" aria-labelledby="apiModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="apiModalLabel">Daftar Layanan API</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body">
+          <h6 class="text-muted">AI</h6>
+          <ul class="list-group mb-3">
+            <li class="list-group-item">
+              <a href="api/viooai?q=hello" target="_blank">LuminAi</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/openai?q=halo" target="_blank">OpenAi</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/islamai?q=halo" target="_blank">IslamAi</a>
+            </li>
+          </ul>
+          <h6 class="text-muted">Search</h6>
+          <ul class="list-group mb-3">
+            <li class="list-group-item">
+              <a href="api/appstore?q=minecraft" target="_blank">App Store</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/bingimg?q=kodok" target="_blank">Bing Img</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/lahelu?q=anime" target="_blank">Lahelu</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/playstore?q=minecraft" target="_blank">Play Store</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/githubSearch?q=webapi" target="_blank">Github Search</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/pin?q=ikann" target="_blank">Pinterest</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/search-image?query=ikann" target="_blank">Search Image</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/yts?q=acumalaka" target="_blank">Youtube Search</a>
+            </li>
+          </ul>
+          <h6 class="text-muted">Stalk</h6>
+          <ul class="list-group mb-3">
+            <li class="list-group-item">
+              <a href="api/ttstalk?q=ikanngeming" target="_blank">Tiktok Stalk</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/npmStalk?q=ikanngeming" target="_blank">Npm Stalk</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/ffStalk?q=12345678" target="_blank">FF Stalk</a>
+            </li>
+          </ul>
+          <h6 class="text-muted">Tools API</h6>
+          <ul class="list-group mb-3">
+            <li class="list-group-item">
+              <a href="api/remove-bg?imageUrl=" target="_blank">Remove-bg</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/bratv1?q=hai" target="_blank">Brat</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/bratv2?q=halo" target="_blank">BratV2</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/utf8?encodedText=ZnVrdXNoaW1haWQ=" target="_blank">Utf8</a>
+            </li>
+            <li class="list-group-item">
+              <a href="api/toBase64?text=hai" target="_blank">toBase64</a>
+            </li>
+          </ul>
+          <h6 class="text-muted">Orkut</h6>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="/api/orkut/createPayment?amount=&codeqr=" target="_blank">Create Payment</a>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="scroll-to-top" href="#top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-<body id="page-top" class="dark-mode">
-<div id="wrapper">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-<img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle shadow-4"style="width: 50px;" alt="Avatar" />
-<div class="sidebar-brand-text mx-3">Vor Apis</div>
-</a>
-<hr class="sidebar-divider my-0">
-<li class="nav-item active">
-<a class="nav-link" href="#">
-<i class="fas fa-fw fa-thermometer-three-quarters"></i>
-<span>STATUS</span></a>
-</li>
-<hr class="sidebar-divider">
-<div class="sidebar-heading">
-Api
-</div>
-<li class="nav-item">
-<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ai" aria-expanded="true" aria-controls="collapseBootstrap">
-<i class="fa fa-robot"></i>
-<span>Ai</span>
-</a>
-<div id="ai" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
-<div class="py-2 collapse-inner rounded">
-<a class="collapse-item" href="api/viooai?q=hello" target="_blank">LuminAi</a>
-<a class="collapse-item" href="api/openai?q=halo" target="_blank">openAi</a>
-<a class="collapse-item" href="api/islamai?q=halo" target="_blank">IslamAi</a>
-</div>
-</div>
-</li>
+    document.getElementById('postCount').textContent = document.querySelectorAll('.modal-body a').length;
 
-<li class="nav-item">
-<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#search" aria-expanded="true" aria-controls="collapseBootstrap">
-<i class="fa fa-search"></i>
-<span>Search</span>
-</a>
-<div id="search" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
-<div class="py-2 collapse-inner rounded">
-<a class="collapse-item" href="api/appstore?q=minecraft" target="_blank">App Store</a>
-<a class="collapse-item" href="api/bingimg?q=kodok" target="_blank">bingImg</a>
-<a class="collapse-item" href="api/lahelu?q=anime" target="_blank">Lahelu</a>
-<a class="collapse-item" href="api/playstore?q=minecraft" target="_blank">Play Store</a>
-<a class="collapse-item" href="api/githubSearch?q=webapi" target="_blank">Github Search</a>
-<a class="collapse-item" href="api/pin?q=ikann" target="_blank">Pinterest</a>
-<a class="collapse-item" href="api/search-image?query=ikann" target="_blank">Search Image</a>
-<a class="collapse-item" href="api/yts?q=acumalaka" target="_blank">Youtube Search</a>
-</div>
-</div>
-</li>
+    // Update status baterai (jika didukung)
+    async function updateBattery() {
+      try {
+        const battery = await navigator.getBattery();
+        document.getElementById('batteryLevel').textContent = Math.floor(battery.level * 100) + '%';
+      } catch (e) {
+        document.getElementById('batteryLevel').textContent = '∞';
+      }
+    }
+    updateBattery();
 
-<li class="nav-item">
-<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#stalk" aria-expanded="true" aria-controls="collapseBootstrap">
-<i class="fa fa-star"></i>
-<span>Stalk</span>
-</a>
-<div id="stalk" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
-<div class="py-2 collapse-inner rounded">
-<div class="py-2 collapse-inner rounded">
-<a class="collapse-item" href="api/ttstalk?q=ikanngeming" target="_blank">Tiktok Stalk</a>
-<a class="collapse-item" href="api/npmStalk?q=ikanngeming" target="_blank">Npm Stalk</a>
-<a class="collapse-item" href="api/ffStalk?q=12345678" target="_blank">FF Stalk</a>
-</div>
-</div>
-</div>
-</li>
-
-<li class="nav-item">
- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseImage" aria-expanded="true" aria-controls="collapseTable">
- <i class="fa fa-fw fa-cat"></i>
- <span>Tools Api</span>
- </a>
- <div id="collapseImage" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
- <div class="py-2 collapse-inner rounded">
- <h6 class="collapse-header">Tools & Convert</h6>
- <a class="collapse-item" href="api/remove-bg?imageUrl=" target="_blank">Remove-bg</a>
- <a class="collapse-item" href="api/bratv1?q=hai" target="_blank">Brat</a>
-<a class="collapse-item" href="api/bratv2?q=halo" target="_blank">BratV2</a>
- <a class="collapse-item" href="api/utf8?encodedText=ZnVrdXNoaW1haWQ=" target="_blank">Utf8</a>
- <a class="collapse-item" href="api/toBase64?text=hai" target="_blank">toBase64</a>
- </div>
- </div>
- </li>
-
-<li class="nav-item">
-<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#orkut" aria-expanded="true" aria-controls="collapseBootstrap">
-<i class="fa fa-money"></i>
-<span>Orkut</span>
-</a>
-<div id="orkut" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
-<div class="py-2 collapse-inner rounded">
-<div class="py-2 collapse-inner rounded">
-<a class="collapse-item" href="/api/orkut/createPayment?amount=&codeqr=" target="_blank">Create Payment</a>
-</div>
-</div>
-</div>
-</li>
-<hr class="sidebar-divider">
-</ul>
-
-<div id="content-wrapper" class="d-flex flex-column">
-<div id="content">
-
-<nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
-<button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
-<i class="fa fa-bars"></i>
-</button>
-<ul class="navbar-nav ml-auto">
-<li class="nav-item dropdown no-arrow">
-<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-<img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle shadow-4"style="width: 50px;" alt="Avatar" />
-<span class="ml-2 d-none d-lg-inline small font-weight-bold"></span>
-</a>
-</li>
-</ul>
-</nav>
-
-<div class="container-fluid" id="container-wrapper">
-<div class="card h-50 mb-4">
-<div class="card-body">
-<div class="row align-items-center">
-<div class="col mr-2">
-<div class="text-md-left font-weight-bold mb-2 text-primary">Project By</div>
-<div class="text-sm-left mb-0 font-weight-bold">Vortex Fukushima Team</div>
-</div>
-<div class="col-auto">
-<i class="fas fa-quote-right fa-2x text-primary"></i>
-</div>
-</div>
-</div>
-</div>
-
-<div class="row mb-3">
-
-<div class="col-xl-3 col-md-6 mb-4">
-<div class="card h-50">
-<div class="card-body">
-<div class="row no-gutters align-items-center">
-<div class="col mr-2">
-<div class="text-xs font-weight-bold text-uppercase mb-1">Post</div>
-<span id="getawayCont" class="h5 mb-0 font-weight-bold">0 </span>
-</div>
-<div class="col-auto">
-<i class="fa fa-fire" ></i>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="col-xl-3 col-md-6 mb-4">
-<div class="card h-50">
-<div class="card-body">
-<div class="row no-gutters align-items-center">
-<div class="col mr-2">
-<div class="text-xs font-weight-bold text-uppercase mb-1">Battery</div>
-<span id="battery_level" class="h5 mb-0 font-weight-bold">100 </span>
-</div>
-<div class="col-auto">
-<i class="fa fa-battery-full" ></i>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="col-xl-3 col-md-6 mb-4">
-<div class="card h-50">
-<div class="card-body">
-<div class="row no-gutters align-items-center">
-<div class="col mr-2">
-<div class="text-xs font-weight-bold text-uppercase mb-1">Time</div>
-<div class="h5 mb-0 font-weight-bold" id="row-no-guttersalign-items-center">Loading...</div>
-<div class="h5 mb-0 font-weight-bold" id="text-xsfont-weight-boldtext-uppercase-mb-1"></div>
-</div>
-<div class="col-auto">
-<i class="fas fa-calendar fa-2x text-primary"></i>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="row">
-<div class="col-lg-12 text-center">Hub Kami
-<p>
-
-<a href="https://wa.me/6281527100923" class="btn btn-primary btn-sm ml-2" target="_blank"><i class="fa-brands fa-whatsapp"></i>&nbsp;Whatsapp</a>
-</p>
-</div>
-</div>
-</div>
-
-</div>
-
-<footer class="sticky-footer">
-<div class="container my-auto">
-<div class="copyright text-center my-auto">
-Made by
-<a href="#" target="_blank" style="color: rgb(224, 32, 7);">Vor Apis</a>
-</span>
-</div>
-</div>
-</footer>
-
-</div>
-</div>
-
-
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
-
-
-<script src="https://zeltoria.github.io/vendor/jquery/jquery.min.js"></script>
-<script src="https://zeltoria.github.io/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://zeltoria.github.io/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="https://zeltoria.github.io/js/ruang-admin.min.js"></script>
-<script src="https://zeltoria.github.io/js/menu.js"></script>
-<script>
-const countCollapseItem = document.querySelectorAll('.collapse-item').length;
-
-document.getElementById('getawayCont').textContent = `${countCollapseItem}`;
-</script>
-
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.toggle('d-none');
+    });
+  </script>
 </body>
-
 </html>
