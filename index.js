@@ -81,7 +81,7 @@ app.get('/api/utf8', (req, res) => {
     const { encodedText } = req.query;
 
     if (base64) {
-        const utf8Text = utf8(base64);
+        const utf8Text = utf8(encodedText);
         res.json({
             status: true,
             creator: 'Vortex-Apis',
