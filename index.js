@@ -1,485 +1,425 @@
-var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
-const axios = require('axios')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Next Generation APIs - Dashboard</title>
+<meta name="keywords" content="vor api, vortexion bot, bot vortex, vortex ai, chat gpt, bot WhatsApp, developer baileys, baileys official, baileys button, bot button, baileys interactive, WhatsApp bot, WhatsApp bot interactive, vortexion apikey, vortexion official">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+ <style>
 
-var app = express();
-app.enable("trust proxy");
-app.set("json spaces", 2);
-app.use(cors());
-app.use(secure);
-const port = 3000;
+ body {
+ font-family: 'Roboto', sans-serif;
+ background: #f1f4f9;
+ color: #333;
+ }
+ a {
+ text-decoration: none;
+ }
+ 
+ .sidebar {
+ background: #1f2937;
+ min-height: 100vh;
+ color: #cbd5e1;
+ }
+ .sidebar .nav-link {
+ color: #cbd5e1;
+ transition: background 0.3s, color 0.3s;
+ }
+ .sidebar .nav-link:hover, .sidebar .nav-link.active {
+ background: #374151;
+ color: #fff;
+ }
+ .sidebar .sidebar-brand {
+ font-size: 1.25rem;
+ font-weight: 500;
+ color: #fff;
+ padding: 1rem;
+ text-align: center;
+ border-bottom: 1px solid #374151;
+ }
+ .sidebar img {
+ width: 50px;
+ margin-bottom: 0.5rem;
+ }
+ 
+ .navbar {
+ background: #fff;
+ box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+ }
+ 
+ .card {
+ border: none;
+ border-radius: 0.75rem;
+ box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+ margin-bottom: 1.5rem;
+ }
+ .card-title {
+ font-weight: 700;
+ }
+ 
+ .footer {
+ background: #fff;
+ padding: 1rem;
+ text-align: center;
+ border-top: 1px solid #e5e7eb;
+ }
 
-function Enc(type) {
-  return encodeURIComponent(type)
-}
+ .scroll-to-top {
+ position: fixed;
+ bottom: 1rem;
+ right: 1rem;
+ background: #1f2937;
+ color: #fff;
+ width: 45px;
+ height: 45px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: background 0.3s;
+ }
+ .scroll-to-top:hover {
+ background: #374151;
+ }
+ </style>
+</head>
+<body id="top">
+ <div class="d-flex">
+ <nav class="sidebar p-3">
+ <div class="sidebar-brand">
+ <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" alt="Avatar">
+ <div>Vor APIs</div>
+ </div>
+ <ul class="nav flex-column mt-4">
+ <li class="nav-item mb-2">
+ <a class="nav-link active" href="#">
+ <i class="fas fa-thermometer-three-quarters me-2"></i>
+ STATUS
+ </a>
+ </li>
+ <li class="nav-item mt-3">
+ <button class="btn btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#apiModal">
+ <i class="fas fa-list me-2"></i> Go To Api
+ </button>
+ </li>
+ </ul>
+ </nav>
+ <div class="flex-grow-1">
+ <nav class="navbar navbar-expand navbar-light mb-4">
+ <div class="container-fluid">
+ <button class="btn btn-outline-secondary" id="sidebarToggle">
+ <i class="fas fa-bars"></i>
+ </button>
+ <ul class="navbar-nav ms-auto">
+ <li class="nav-item dropdown">
+ <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+ <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" style="width: 40px;" alt="Avatar">
+ </a>
+<!-- Dropdown Menu -->
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+ <li><a class="dropdown-item" href="#" id="profileLink">Profil</a></li>
+ <li><a class="dropdown-item" href="#" id="settingsLink">Pengaturan</a></li>
+ <li><hr class="dropdown-divider"></li>
+ <li><a class="dropdown-item" href="#">Keluar</a></li>
+</ul>
 
-function Dec(type) {
-  return decodeURIComponent(type)
-}
+<!-- Modal Profil -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h5 class="modal-title" id="profileModalLabel">Profile Website</h5>
+ <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ </div>
+ <div class="modal-body">
+ <p id="profileName">Nama Pengembang: Cloud AhmadXyz</p>
+ <p id="profileEmail">Email: vortexionchannel@gmail.com</p>
+ <p id="profilePhone">Nomor Telepon: +6271527100923</p>
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+ </div>
+ </div>
+ </div>
+</div>
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h5 class="modal-title" id="settingsModalLabel">Pengaturan</h5>
+ <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ </div>
+ <div class="modal-body">
+ <div class="mb-3">
+ <label for="languageSelect" class="form-label" id="languageLabel">Bahasa</label>
+ <select class="form-select" id="languageSelect">
+ <option value="id">Bahasa Indonesia</option>
+ <option value="en">English</option>
+ </select>
+ </div>
+ <div class="mb-3">
+ <label for="themeSelect" class="form-label" id="themeLabel">Tema</label>
+ <select class="form-select" id="themeSelect">
+ <option value="light">Terang</option>
+ <option value="dark">Gelap</option>
+ </select>
+ </div>
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+ <button type="button" class="btn btn-primary" id="saveSettings">Simpan Perubahan</button>
+ </div>
+ </div>
+ </div>
+</div>
+ </nav>
+ <div class="container-fluid">
+ <div class="mb-4">
+ <h2 class="fw-bold">Dashboard API</h2>
+ <p class="text-muted">Selamat datang! Klik tombol "Go To Api" pada sidebar menu untuk mengeksplorasi seluruh layanan API kami.</p>
+ </div>
+ <div class="row">
+ <div class="col-lg-12">
+ <div class="card">
+ <div class="card-body">
+ <h5 class="card-title text-primary">Project Oleh</h5>
+ <p class="card-text">Vortex Fukushima Team</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="row">
+ <div class="col-md-4">
+ <div class="card text-center">
+ <div class="card-body">
+ <h6 class="text-muted">Post</h6>
+ <h4 id="postCount" class="fw-bold">0</h4>
+ <i class="fas fa-fire fa-2x text-warning"></i>
+ </div>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="card text-center">
+ <div class="card-body">
+ <h6 class="text-muted">Battery</h6>
+ <h4 id="batteryLevel" class="fw-bold">100%</h4>
+ <i class="fas fa-battery-full fa-2x text-success"></i>
+ </div>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="card text-center">
+ <div class="card-body">
+ <h6 class="text-muted">Waktu</h6>
+ <h4 id="currentTime" class="fw-bold">Loading...</h4>
+ <i class="fas fa-calendar fa-2x text-primary"></i>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="row mt-4">
+ <div class="col text-center">
+ <p class="fw-bold">Dukung Kami</p>
+ <a href="https://whatsapp.com/channel/0029VaxL7402ZjCmqq6FjE1C" class="btn btn-primary btn-sm" target="_blank">
+ <i class="fab fa-whatsapp"></i> Whatsapp
+ </a>
+ </div>
+ </div>
+ </div>
+ <footer class="footer mt-auto">
+ <div class="container">
+ <span class="text-muted">Made by <a href="#" style="color: #d82007;">Vor APIs</a></span>
+ </div>
+ </footer>
+ </div>
+ </div>
+ <div class="modal fade" id="apiModal" tabindex="-1" aria-labelledby="apiModalLabel" aria-hidden="true">
+ <div class="modal-dialog modal-lg modal-dialog-scrollable">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h5 class="modal-title" id="apiModalLabel">Daftar Layanan API</h5>
+ <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+ </div>
+ <div class="modal-body">
+ <h6 class="text-muted">AI</h6>
+ <ul class="list-group mb-3">
+ <li class="list-group-item">
+ <a href="api/viooai?q=hello" target="_blank">LuminAi</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/openai?q=halo" target="_blank">OpenAi</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/islamai?q=halo" target="_blank">IslamAi</a>
+ </li>
+ </ul>
+ <h6 class="text-muted">Search</h6>
+ <ul class="list-group mb-3">
+ <li class="list-group-item">
+ <a href="api/appstore?q=minecraft" target="_blank">App Store</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/bingimg?q=kodok" target="_blank">Bing Img</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/lahelu?q=anime" target="_blank">Lahelu</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/playstore?q=minecraft" target="_blank">Play Store</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/githubSearch?q=webapi" target="_blank">Github Search</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/pin?q=ikann" target="_blank">Pinterest</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/search-image?query=ikann" target="_blank">Search Image</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/yts?q=acumalaka" target="_blank">Youtube Search</a>
+ </li>
+ </ul>
+ <h6 class="text-muted">Stalk</h6>
+ <ul class="list-group mb-3">
+ <li class="list-group-item">
+ <a href="api/ttstalk?q=ikanngeming" target="_blank">Tiktok Stalk</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/npmStalk?q=ikanngeming" target="_blank">Npm Stalk</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/ffStalk?q=12345678" target="_blank">FF Stalk</a>
+ </li>
+ </ul>
+ <h6 class="text-muted">Tools API</h6>
+ <ul class="list-group mb-3">
+ <li class="list-group-item">
+ <a href="api/remove-bg?imageUrl=" target="_blank">Remove-bg</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/bratv1?q=hai" target="_blank">Brat</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/bratv2?q=halo" target="_blank">BratV2</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/utf8?encodedText=ZnVrdXNoaW1haWQ=" target="_blank">Utf8</a>
+ </li>
+ <li class="list-group-item">
+ <a href="api/toBase64?text=hai" target="_blank">toBase64</a>
+ </li>
+ </ul>
+ <h6 class="text-muted">Orkut</h6>
+ <ul class="list-group">
+ <li class="list-group-item">
+ <a href="/api/orkut/createPayment?amount=&codeqr=" target="_blank">Create Payment</a>
+ </li>
+ </ul>
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ <a class="scroll-to-top" href="#top">
+ <i class="fas fa-angle-up"></i>
+ </a>
 
-app.get('/stats', (req, res) => {
- const stats = {
- platform: os.platform(),
- architecture: os.arch(),
- totalMemory: os.totalmem(),
- freeMemory: os.freemem(),
- uptime: os.uptime(),
- cpuModel: os.cpus()[0].model,
- numCores: os.cpus().length,
- loadAverage: os.loadavg(),
- hostname: os.hostname(),
- networkInterfaces: os.networkInterfaces(),
- osType: os.type(),
- osRelease: os.release(),
- userInfo: os.userInfo(),
- processId: process.pid,
- nodeVersion: process.version,
- execPath: process.execPath,
- cwd: process.cwd(),
- memoryUsage: process.memoryUsage()
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+ <script>
+ function updateClock() {
+ const now = new Date();
+ document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+ }
+ setInterval(updateClock, 1000);
+ updateClock();
+
+ document.getElementById('postCount').textContent = document.querySelectorAll('.modal-body a').length;
+
+ // Update status baterai (jika didukung)
+ async function updateBattery() {
+ try {
+ const battery = await navigator.getBattery();
+ document.getElementById('batteryLevel').textContent = Math.floor(battery.level * 100) + '%';
+ } catch (e) {
+ document.getElementById('batteryLevel').textContent = '∞';
+ }
+ }
+ updateBattery();
+
+ document.getElementById('sidebarToggle').addEventListener('click', () => {
+ document.querySelector('.sidebar').classList.toggle('d-none');
+ });
+ </script>
+ <script>
+ function saveSettings() {
+ const selectedLanguage = document.getElementById("languageSelect").value;
+ const selectedTheme = document.getElementById("themeSelect").value;
+ localStorage.setItem("language", selectedLanguage);
+ localStorage.setItem("theme", selectedTheme);
+ applyLanguage(selectedLanguage);
+ applyTheme(selectedTheme);
+ }
+ function applyLanguage(language) {
+ const languageData = {
+ id: {
+ profileName: "Nama",
+ profileEmail: "Email",
+ profilePhone: "Nomor Telepon",
+ languageLabel: "Bahasa",
+ themeLabel: "Tema",
+ },
+ en: {
+ profileName: "Nama Pengembang",
+ profileEmail: "Email",
+ profilePhone: "Phone Number",
+ languageLabel: "Language",
+ themeLabel: "Theme",
+ },
  };
- res.json(stats);
-});
-
-app.get('/api/playstore', async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const response = await axios.get(`https://api.vreden.web.id/api/playstore?query=${Enc(q)}`)
-    res.status(200).json({
-    status: true,
-    data: response.data.result,
-    })
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get('/api/bratv1', async (req, res) => {
-  const { q } = req.query;
-  
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" });
-  }
-
-  try {
-    // Request ke fastrestapis API langsung
-    const response = await axios.get(`https://fastrestapis.fasturl.cloud/maker/brat/animated?text=${encodeURIComponent(q)}&mode=animated`, { responseType: 'arraybuffer' });
-
-    // Kirim hasilnya sebagai response
-    res.setHeader('Content-Type', 'image/png');
-    res.send(response.data);
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message });
-  }
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-app.get('/api/generate', async (req, res) => {
-  let teks = req.query.teks || 'Default Text';
-  
-  try {
-    const { BratGenerator } = require('./scrape')
-    let imageBuffer = await BratGenerator(teks);
-    res.setHeader('Content-Type', 'image/png');
-    res.send(imageBuffer);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Terjadi kesalahan');
-  }
-});
-
-app.get("/api/openai", async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const { ChatGPT } = require('./scrape')
-    const response = await ChatGPT(`${Enc(q)}`, "openai")
-    res.status(200).json({
-    status: true,
-    result: response
-    })
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get("/api/bingimg", async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const { bingI } = require('./scrape')
-    const response = await bingI(`${Enc(q)}`)
-    res.status(200).json({
-    status: true,
-    data: response,
-    })
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get('/api/bratv1', async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const response = await axios.get(`https://fastrestapis.fasturl.cloud/maker/brat/animated?text=${Enc(q)}&mode=animated`, { responseType: 'arraybuffer' })
-    res.setHeader('Content-Type', 'image/png')
-    res.send(response.data)
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get('/api/appstore', async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const response = await axios.get(`https://deliriussapi-oficial.vercel.app/search/appstore?q=${Enc(q)}`)
-    res.status(200).json({
-    status: true,
-    data: response.data,
-    })
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get("/api/islamai", async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const { islamai } = require('./scrape')
-    const response = await islamai(`${Enc(q)}`)
-    res.status(200).json({
-    status: true,
-    result: response.result
-    })
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get('/api/lahelu', async (req, res) => {
- const { q } = req.query;
-
- if (!q) {
- return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
+ document.getElementById("profileName").innerText = languageData[language].profileName + ": Cloud AhmadXyz";
+ document.getElementById("profileEmail").innerText = languageData[language].profileEmail + ": vortexionchannel@gmail.com";
+ document.getElementById("profilePhone").innerText = languageData[language].profilePhone + ": +62 815 271 00923";
+ document.getElementById("languageLabel").innerText = languageData[language].languageLabel;
+ document.getElementById("themeLabel").innerText = languageData[language].themeLabel;
  }
-
- try {
- const { laheluSearch } = require('./scrape')
- const response = await laheluSearch(q); res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response
+ function applyTheme(theme) {
+ if (theme === "dark") {
+ document.body.classList.add("bg-dark", "text-light");
+ document.body.classList.remove("bg-light", "text-dark");
+ } else {
+ document.body.classList.add("bg-light", "text-dark");
+ document.body.classList.remove("bg-dark", "text-light");
+ }
+ }
+ document.getElementById("profileLink").addEventListener("click", function(event) {
+ event.preventDefault();
+ var profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
+ profileModal.show();
  });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.get('/api/search-image', async (req, res) => {
-    const { query } = req.query;
-
-    if (!query) {
-        return res.status(400).json({ status: false, error: "Query parameter 'query' is required" });
-    }
-
-    try {
-        const { searchImage } = require('./scrape');
-        const images = await searchImage(query);
-
-        res.status(200).json({ status: true, creator: "Vortex Apis", images });
-    } catch (error) {
-        res.status(500).json({ status: false, error: error.message });
-    }
-});
-
-app.get('/api/utf8', (req, res) => {
-    const { encodedText } = req.query;
-
-    if (!encodedText) {
-        return res.status(400).json({ status: false, error: "Query parameter 'encodedText' is required" });
-    }
-
-    try {
-        const { utf8 } = require('./scrape');
-        const decodedText = utf8(encodedText);
-
-        res.status(200).json({
-            status: true,
-            creator: 'Vortex Apis',
-            decodedText: decodedText
-        });
-    } catch (error) {
-        res.status(500).json({ status: false, error: error.message });
-    }
-});
-
-app.get('/api/bratv2', async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const { bratv2 } = require('./scrape')
-    const bratImage = await bratv2(`${Enc(q)}`)
-    const base64Image = bratImage.split(',')[1]
-    const imageBuffer = Buffer.from(base64Image, 'base64')
-    res.setHeader('Content-Type', 'image/png')
-    res.send(imageBuffer)
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get('/api/brat', async (req, res) => {
-    const { text } = req.query;
-
-    if (!text) {
-        return res.status(400).json({ status: false, error: "Query parameter 'text' is required" });
-    }
-
-    try {
-        const { generateBrat } = require('./scrape');
-        const imagePath = await generateBrat(text);
-        res.sendFile(imagePath, () => {
-            // Hapus file setelah dikirim biar gak numpuk
-            fs.unlinkSync(imagePath);
-        });
-    } catch (error) {
-        res.status(500).json({ status: false, error: error.message });
-    }
-});
-
-app.get('/api/remove-bg', async (req, res) => {
-    const { imageUrl } = req.query;
-
-    if (!imageUrl) {
-        return res.status(400).json({ status: false, error: "Query parameter 'imageUrl' is required - Parameter kueri 'imageUrl' diperlukan" });
-    }
-
-    try {
-        const { removeBackground } = require('./scrape');
-        const outputPath = await removeBackground(imageUrl);
-        res.sendFile(outputPath, () => {
-            fs.unlinkSync(outputPath);
-        });
-    } catch (error) {
-        res.status(500).json({ status: false, error: error.message });
-    }
-});
-
-app.get('/api/toBase64', (req, res) => {
-    const { text } = req.query;
-
-    if (!text) {
-        return res.status(400).json({ status: false, error: "Query parameter 'text' is required" });
-    }
-
-    try {
-        const { toBase64 } = require('./scrape');
-        const base64Text = toBase64(text);
-        
-        res.status(200).json({
-            status: true,
-            creator: 'Vortex Apis',
-            base64: base64Text
-        });
-    } catch (error) {
-        res.status(500).json({ status: false, error: error.message });
-    }
-});
-
-app.get('/api/githubSearch', async (req, res) => {
- const { q } = req.query;
-
- if (!q) {
- return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
- }
-
- try {
- const { githubSearch } = require('./scrape')
- const response = await githubSearch(q); res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response
+ document.getElementById("settingsLink").addEventListener("click", function(event) {
+ event.preventDefault();
+ var settingsModal = new bootstrap.Modal(document.getElementById('settingsModal'));
+ settingsModal.show();
  });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.get('/api/yts', async (req, res) => {
-  const { q } = req.query
-  if (!q) {
-    return res.status(400).json({ status: false, error: "Query is required" })
-  }
-  try {
-    const { ytsearch } = require('./scrape')
-    const videos = await ytsearch(`${Dec(q)}`)
-    res.status(200).json({
-      status: true,
-      data: videos
-    })
-  } catch (error) {
-    res.status(500).json({ status: false, error: error.message })
-  }
-});
-
-app.get('/api/pin', async (req, res) => {
- const { q } = req.query;
- if (!q) {
- return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
- }
-
- try {
- const { pin } = require('./scrape')
- const response = await pin(q);
- res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response
+ document.getElementById("saveSettings").addEventListener("click", function() {
+ saveSettings();
+ var settingsModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
+ settingsModal.hide();
  });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.get('/api/ttstalk', async (req, res) => {
- const { q } = req.query;
- if (!q) {
- return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
- }
- try {
- const { ttstalk } = require('./scrape')
- const response = await ttstalk(q); res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response
+ document.addEventListener("DOMContentLoaded", function() {
+ const language = localStorage.getItem("language") || "id"; 
+ const theme = localStorage.getItem("theme") || "light"; 
+ applyLanguage(language);
+ applyTheme(theme);
+ document.getElementById("languageSelect").value = language;
+ document.getElementById("themeSelect").value = theme;
  });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.get('/api/npmStalk', async (req, res) => {
- const { q } = req.query;
-
- if (!q) {
- return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
- }
-
- try {
- const { npmStalk } = require('./scrape')
- const response = await npmStalk(q); res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response
- });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.get('/api/ffStalk', async (req, res) => {
- const { q } = req.query;
- if (!q) {
- return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
- }
- try {
- const { ffStalk } = require('./scrape')
- const response = await ffStalk.stalk(q);
- res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response
- });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.get('/api/viooai', async (req, res) => {
- const { q } = req.query;
-
- if (!q) {
- return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
- }
-
- try {
- const { viooai } = require('./scrape')
- const response = await viooai(q); res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response
- });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.get('/api/orkut/createPayment', async (req, res) => {
- const { amount, codeqr } = req.query;
-
- if (!amount) {
- return res.status(400).json({ status: false, error: "Tolong masukkan harganya" });
- }
- if (!codeqr) {
- return res.status(400).json({ status: false, error: "Tolong masukkan codeqr" });
- }
-
- try {
- const { createPayment } = require('./scrape')
- const response = await createPayment(amount, codeqr); 
- res.status(200).json({
- status: true,
- creator: 'Vortex Apis',
- data: response.result
- });
- } catch (error) {
- res.status(500).json({ status: false, error: error.message });
- }
-});
-
-app.use((req, res, next) => {
- res.status(404).send("Halaman tidak ditemukan");
-});
-
-app.use((err, req, res, next) => {
- console.error(err.stack);
- res.status(500).send('Ada kesalahan pada server');
-});
-
-
-app.use((req, res, next) => {
- res.status(404).send("Halaman tidak ditemukan");
-});
-
-app.use((err, req, res, next) => {
- console.error(err.stack);
- res.status(500).send('Ada kesalahan pada server');
-});
-
-app.listen(port, () => {
- console.log(`Server berjalan di http://localhost:${port}`);
-});
+</script>
+</body>
+</html>
