@@ -8,12 +8,20 @@
  {
  "src": "index.html",
  "use": "@vercel/static"
+ },
+ {
+ "src": "dashboard/index.html",
+ "use": "@vercel/static"
  }
  ],
  "routes": [
  {
  "src": "/api/(.*)",
  "dest": "/index.js"
+ },
+ {
+ "src": "/dashboard",
+ "dest": "/dashboard/index.html"
  },
  {
  "src": "/(.*)",
