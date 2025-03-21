@@ -44,6 +44,18 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+app.get('/api/toBase64', (req, res) => {
+    const { text } = req.query;
+
+    if (text) {
+    const { toBase64 } = require('./scrape');
+        const base64Text = toBase64(text);
+        res.json({ base64: base64Text });
+    } else {
+        res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
+    }
+});
+
 app.get("/api/yts", async (req, res) => {
   const { q } = req.query
   if (!q) {
