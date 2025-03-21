@@ -81,10 +81,11 @@ app.get('/api/utf8', (req, res) => {
     const { encodedText } = req.query;
 
     if (encodedText) {
+        const { utf8 } = require('./scrape')
         const utf8Text = utf8(encodedText);
         res.json({
             status: true,
-            creator: 'Your Name or Team Name',
+            creator: 'Vortex-Apis',
             UTF8: utf8Text
         });
     } else {
