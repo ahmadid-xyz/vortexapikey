@@ -78,7 +78,7 @@ app.get("/api/yts", async (req, res) => {
 });
 
 app.get('/api/utf8', (req, res) => {
-    const { base64 } = req.query;
+    const { encodedText } = req.query;
 
     if (base64) {
         const utf8Text = utf8(base64);
