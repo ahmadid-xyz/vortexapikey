@@ -50,7 +50,7 @@ app.get("/api/yts", async (req, res) => {
     return res.status(400).json({ status: false, error: "Query is required" })
   }
   try {
-    const { ytsearch } = require('./search/functions')
+    const { ytsearch } = require('./scrape')
     const videos = await ytsearch(`${Dec(q)}`)
     res.status(200).json({
       status: true,
