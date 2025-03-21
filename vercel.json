@@ -4,6 +4,10 @@
  {
  "src": "index.js",
  "use": "@vercel/node"
+ },
+ {
+ "src": "index.html",
+ "use": "@vercel/static"
  }
  ],
  "routes": [
@@ -12,16 +16,8 @@
  "dest": "/index.js"
  },
  {
- "src": "/",
- "dest": "/index.js" // Pastikan root request diarahkan ke index.js
- },
- {
- "src": "/dashboard",
- "dest": "/index.js" // Permintaan ke /dashboard juga akan diarahkan ke index.js
- },
- {
  "src": "/(.*)",
- "dest": "/public/$1" // Menangani file statis di dalam folder public
+ "dest": "/public/$1"
  }
  ]
 }
