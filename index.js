@@ -48,11 +48,15 @@ app.get('/api/toBase64', (req, res) => {
     const { text } = req.query;
 
     if (text) {
-    const { toBase64 } = require('./scrape');
+        const { toBase64 } = require('./scrape');
         const base64Text = toBase64(text);
-        res.json({ base64: base64Text });
+        res.json({
+            status: true,
+            creator: 'Your Name or Team Name',
+            Base64: base64Text
+        });
     } else {
-        res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
+        res.status(400).json({ status: false, error: 'Parameter "text" tidak ditemukan' });
     }
 });
 
