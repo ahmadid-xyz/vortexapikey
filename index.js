@@ -35,6 +35,22 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+app.get("/api/appstore", async (req, res) => {
+  const { q } = req.query
+  if (!q) {
+    return res.status(400).json({ status: false, error: "Query is required" })
+  }
+  try {
+    const response = await axios.get(`https://deliriussapi-oficial.vercel.app/search/appstore?q=${Enc(q)}`)
+    res.status(200).json({
+    status: true,
+    data: response.data,
+    })
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message })
+  }
+});
+
 app.get('/api/lahelu', async (req, res) => {
  const { q } = req.query;
 
