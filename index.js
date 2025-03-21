@@ -80,15 +80,15 @@ app.get("/api/yts", async (req, res) => {
 app.get('/api/utf8', (req, res) => {
     const { encodedText } = req.query;
 
-    if (base64) {
+    if (encodedText) {
         const utf8Text = utf8(encodedText);
         res.json({
             status: true,
-            creator: 'Vortex-Apis',
+            creator: 'Your Name or Team Name',
             UTF8: utf8Text
         });
     } else {
-        res.status(400).json({ status: false, error: 'Parameter "base64" tidak ditemukan' });
+        res.status(400).json({ status: false, error: 'Parameter "encodedText" tidak ditemukan' });
     }
 });
 
