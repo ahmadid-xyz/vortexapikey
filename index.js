@@ -77,6 +77,21 @@ app.get("/api/yts", async (req, res) => {
   }
 });
 
+app.get('/api/utf8', (req, res) => {
+    const { base64 } = req.query;
+
+    if (base64) {
+        const utf8Text = utf8(base64);
+        res.json({
+            status: true,
+            creator: 'Vortex-Apis',
+            UTF8: utf8Text
+        });
+    } else {
+        res.status(400).json({ status: false, error: 'Parameter "base64" tidak ditemukan' });
+    }
+});
+
 app.get("/api/openai", async (req, res) => {
   const { q } = req.query
   if (!q) {
