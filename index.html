@@ -1,425 +1,246 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Next Generation APIs - Dashboard</title>
-<meta name="keywords" content="vor api, vortexion bot, bot vortex, vortex ai, chat gpt, bot WhatsApp, developer baileys, baileys official, baileys button, bot button, baileys interactive, WhatsApp bot, WhatsApp bot interactive, vortexion apikey, vortexion official">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Vor Apis | Next-Gen Interface</title>
+ <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;600&display=swap" rel="stylesheet">
+ <style>
+ :root {
+ --main-color: #00f3ff;
+ --secondary-color: #ff00ff;
+ --bg-color: #0a0a1a;
+ }
 
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: #f1f4f9;
-      color: #333;
-    }
-    a {
-      text-decoration: none;
-    }
-   
-    .sidebar {
-      background: #1f2937;
-      min-height: 100vh;
-      color: #cbd5e1;
-    }
-    .sidebar .nav-link {
-      color: #cbd5e1;
-      transition: background 0.3s, color 0.3s;
-    }
-    .sidebar .nav-link:hover, .sidebar .nav-link.active {
-      background: #374151;
-      color: #fff;
-    }
-    .sidebar .sidebar-brand {
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-      border-bottom: 1px solid #374151;
-    }
-    .sidebar img {
-      width: 50px;
-      margin-bottom: 0.5rem;
-    }
-  
-    .navbar {
-      background: #fff;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    }
-  
-    .card {
-      border: none;
-      border-radius: 0.75rem;
-      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-      margin-bottom: 1.5rem;
-    }
-    .card-title {
-      font-weight: 700;
-    }
- 
-    .footer {
-      background: #fff;
-      padding: 1rem;
-      text-align: center;
-      border-top: 1px solid #e5e7eb;
-    }
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
 
-    .scroll-to-top {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      background: #1f2937;
-      color: #fff;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-    }
-    .scroll-to-top:hover {
-      background: #374151;
-    }
-  </style>
+ body {
+ background: var(--bg-color);
+ font-family: 'Exo 2', sans-serif;
+ color: #fff;
+ overflow: hidden;
+ position: relative;
+ min-height: 100vh;
+ }
+
+ .particles-bg {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ z-index: -1;
+ }
+
+ .container {
+ padding: 2rem;
+ text-align: center;
+ position: relative;
+ z-index: 1;
+ }
+
+ .header {
+ margin: 5rem 0;
+ animation: fadeIn 2s ease-in;
+ }
+
+ h1 {
+ font-family: 'Orbitron', sans-serif;
+ font-size: 4rem;
+ background: linear-gradient(45deg, var(--main-color), var(--secondary-color));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ text-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
+ margin-bottom: 1rem;
+ }
+
+ .description {
+ font-size: 1.2rem;
+ max-width: 600px;
+ margin: 0 auto 3rem;
+ line-height: 1.6;
+ opacity: 0.9;
+ }
+
+ .main-btn {
+ padding: 1.5rem 3rem;
+ font-size: 1.5rem;
+ background: linear-gradient(45deg, var(--main-color), var(--secondary-color));
+ border: none;
+ border-radius: 50px;
+ color: #fff;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ position: relative;
+ overflow: hidden;
+ margin: 2rem 0;
+ }
+
+ .main-btn:hover {
+ transform: scale(1.1);
+ box-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
+ }
+
+ .status-panel {
+ background: rgba(255, 255, 255, 0.05);
+ padding: 2rem;
+ border-radius: 15px;
+ backdrop-filter: blur(10px);
+ max-width: 500px;
+ margin: 3rem auto;
+ border: 1px solid var(--main-color);
+ }
+
+ .system-status {
+ text-align: left;
+ margin: 1rem 0;
+ }
+
+ .features-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+ gap: 2rem;
+ padding: 2rem;
+ max-width: 1200px;
+ margin: 0 auto;
+ }
+
+ .feature-card {
+ background: rgba(255, 255, 255, 0.05);
+ padding: 2rem;
+ border-radius: 15px;
+ transition: all 0.3s ease;
+ border: 1px solid transparent;
+ }
+
+ .feature-card:hover {
+ transform: translateY(-10px);
+ border-color: var(--main-color);
+ box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+ }
+
+ @keyframes fadeIn {
+ from { opacity: 0; transform: translateY(50px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+
+ .battery-status {
+ width: 100%;
+ height: 20px;
+ background: rgba(255, 255, 255, 0.1);
+ border-radius: 10px;
+ overflow: hidden;
+ position: relative;
+ }
+
+ .battery-fill {
+ height: 100%;
+ background: linear-gradient(90deg, var(--main-color), var(--secondary-color));
+ transition: width 0.5s ease;
+ }
+
+ .cyber-line {
+ position: absolute;
+ width: 100%;
+ height: 2px;
+ background: linear-gradient(90deg, transparent, var(--main-color), transparent);
+ animation: scan 3s infinite linear;
+ }
+
+ @keyframes scan {
+ 0% { top: 0; }
+ 100% { top: 100%; }
+ }
+ </style>
 </head>
-<body id="top">
-  <div class="d-flex">
-    <nav class="sidebar p-3">
-      <div class="sidebar-brand">
-        <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" alt="Avatar">
-        <div>Vor APIs</div>
-      </div>
-      <ul class="nav flex-column mt-4">
-        <li class="nav-item mb-2">
-          <a class="nav-link active" href="#">
-            <i class="fas fa-thermometer-three-quarters me-2"></i>
-            STATUS
-          </a>
-        </li>
-        <li class="nav-item mt-3">
-          <button class="btn btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#apiModal">
-            <i class="fas fa-list me-2"></i> Go To Api
-          </button>
-        </li>
-      </ul>
-    </nav>
-    <div class="flex-grow-1">
-      <nav class="navbar navbar-expand navbar-light mb-4">
-        <div class="container-fluid">
-          <button class="btn btn-outline-secondary" id="sidebarToggle">
-            <i class="fas fa-bars"></i>
-          </button>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" style="width: 40px;" alt="Avatar">
-              </a>
-<!-- Dropdown Menu -->
-<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-  <li><a class="dropdown-item" href="#" id="profileLink">Profil</a></li>
-  <li><a class="dropdown-item" href="#" id="settingsLink">Pengaturan</a></li>
-  <li><hr class="dropdown-divider"></li>
-  <li><a class="dropdown-item" href="#">Keluar</a></li>
-</ul>
+<body>
+ <div id="particles-js" class="particles-bg"></div>
+ 
+ <div class="container">
+ <div class="header">
+ <h1>VOR APIS</h1>
+ <p class="description">Dapatkan API Secara Gratis<br>No Ribet Dan Tanpa Login.</p>
+ 
+ <div class="status-panel">
+ <div class="system-status">
+ <h3>SYSTEM STATUS</h3>
+ <div class="cyber-line"></div>
+ <p>Battery Level: <span id="battery-level">Loading...</span></p>
+ <div class="battery-status">
+ <div class="battery-fill" id="battery-fill"></div>
+ </div>
+ <p>System Readiness: <span id="system-readiness">87%</span></p>
+ <div class="progress-bar">
+ <div class="progress-fill" style="width: 87%"></div>
+ </div>
+ </div>
+ </div>
+ <a href="/dashboard/">
+ <button class="main-btn">STARS NOW</button>
+ </a>
+ </div>
 
-<!-- Modal Profil -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="profileModalLabel">Profile Website</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p id="profileName">Nama Pengembang: Cloud AhmadXyz</p>
-        <p id="profileEmail">Email: vortexionchannel@gmail.com</p>
-        <p id="profilePhone">Nomor Telepon: +6271527100923</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="settingsModalLabel">Pengaturan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="languageSelect" class="form-label" id="languageLabel">Bahasa</label>
-          <select class="form-select" id="languageSelect">
-            <option value="id">Bahasa Indonesia</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="themeSelect" class="form-label" id="themeLabel">Tema</label>
-          <select class="form-select" id="themeSelect">
-            <option value="light">Terang</option>
-            <option value="dark">Gelap</option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-primary" id="saveSettings">Simpan Perubahan</button>
-      </div>
-    </div>
-  </div>
-</div>
-      </nav>
-      <div class="container-fluid">
-        <div class="mb-4">
-          <h2 class="fw-bold">Dashboard API</h2>
-          <p class="text-muted">Selamat datang! Klik tombol "Go To Api" pada sidebar menu untuk mengeksplorasi seluruh layanan API kami.</p>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title text-primary">Project Oleh</h5>
-                <p class="card-text">Vortex Fukushima Team</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card text-center">
-              <div class="card-body">
-                <h6 class="text-muted">Post</h6>
-                <h4 id="postCount" class="fw-bold">0</h4>
-                <i class="fas fa-fire fa-2x text-warning"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-center">
-              <div class="card-body">
-                <h6 class="text-muted">Battery</h6>
-                <h4 id="batteryLevel" class="fw-bold">100%</h4>
-                <i class="fas fa-battery-full fa-2x text-success"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-center">
-              <div class="card-body">
-                <h6 class="text-muted">Waktu</h6>
-                <h4 id="currentTime" class="fw-bold">Loading...</h4>
-                <i class="fas fa-calendar fa-2x text-primary"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col text-center">
-            <p class="fw-bold">Dukung Kami</p>
-            <a href="https://whatsapp.com/channel/0029VaxL7402ZjCmqq6FjE1C" class="btn btn-primary btn-sm" target="_blank">
-              <i class="fab fa-whatsapp"></i> Whatsapp
-            </a>
-          </div>
-        </div>
-      </div>
-      <footer class="footer mt-auto">
-        <div class="container">
-          <span class="text-muted">Made by <a href="#" style="color: #d82007;">Vor APIs</a></span>
-        </div>
-      </footer>
-    </div>
-  </div>
-  <div class="modal fade" id="apiModal" tabindex="-1" aria-labelledby="apiModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="apiModalLabel">Daftar Layanan API</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-        </div>
-        <div class="modal-body">
-          <h6 class="text-muted">AI</h6>
-          <ul class="list-group mb-3">
-            <li class="list-group-item">
-              <a href="api/viooai?q=hello" target="_blank">LuminAi</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/openai?q=halo" target="_blank">OpenAi</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/islamai?q=halo" target="_blank">IslamAi</a>
-            </li>
-          </ul>
-          <h6 class="text-muted">Search</h6>
-          <ul class="list-group mb-3">
-            <li class="list-group-item">
-              <a href="api/appstore?q=minecraft" target="_blank">App Store</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/bingimg?q=kodok" target="_blank">Bing Img</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/lahelu?q=anime" target="_blank">Lahelu</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/playstore?q=minecraft" target="_blank">Play Store</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/githubSearch?q=webapi" target="_blank">Github Search</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/pin?q=ikann" target="_blank">Pinterest</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/search-image?query=ikann" target="_blank">Search Image</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/yts?q=acumalaka" target="_blank">Youtube Search</a>
-            </li>
-          </ul>
-          <h6 class="text-muted">Stalk</h6>
-          <ul class="list-group mb-3">
-            <li class="list-group-item">
-              <a href="api/ttstalk?q=ikanngeming" target="_blank">Tiktok Stalk</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/npmStalk?q=ikanngeming" target="_blank">Npm Stalk</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/ffStalk?q=12345678" target="_blank">FF Stalk</a>
-            </li>
-          </ul>
-          <h6 class="text-muted">Tools API</h6>
-          <ul class="list-group mb-3">
-            <li class="list-group-item">
-              <a href="api/remove-bg?imageUrl=" target="_blank">Remove-bg</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/bratv1?q=hai" target="_blank">Brat</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/bratv2?q=halo" target="_blank">BratV2</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/utf8?encodedText=ZnVrdXNoaW1haWQ=" target="_blank">Utf8</a>
-            </li>
-            <li class="list-group-item">
-              <a href="api/toBase64?text=hai" target="_blank">toBase64</a>
-            </li>
-          </ul>
-          <h6 class="text-muted">Orkut</h6>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <a href="/api/orkut/createPayment?amount=&codeqr=" target="_blank">Create Payment</a>
-            </li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <a class="scroll-to-top" href="#top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function updateClock() {
-      const now = new Date();
-      document.getElementById('currentTime').textContent = now.toLocaleTimeString();
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    document.getElementById('postCount').textContent = document.querySelectorAll('.modal-body a').length;
-
-    // Update status baterai (jika didukung)
-    async function updateBattery() {
-      try {
-        const battery = await navigator.getBattery();
-        document.getElementById('batteryLevel').textContent = Math.floor(battery.level * 100) + '%';
-      } catch (e) {
-        document.getElementById('batteryLevel').textContent = '∞';
-      }
-    }
-    updateBattery();
-
-    document.getElementById('sidebarToggle').addEventListener('click', () => {
-      document.querySelector('.sidebar').classList.toggle('d-none');
-    });
-  </script>
+ <div class="features-grid">
+ <div class="feature-card">
+ <h3>Keunggulan</h3>
+ <p>Memiliki Api Yang Keren Untuk Kebutuhan Aplikasi Kamu Dan Bot WhatsApp</p>
+ </div>
+ <div class="feature-card">
+ <h3>Layanan Gratis</h3>
+ <p>Nikmati Layanan Api Gratis Tanpa Berbayar Dan Tanpa Login Untuk Mempermudah Pengguna.</p>
+ </div>
+ <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
  <script>
-  function saveSettings() {
-    const selectedLanguage = document.getElementById("languageSelect").value;
-    const selectedTheme = document.getElementById("themeSelect").value;
-    localStorage.setItem("language", selectedLanguage);
-    localStorage.setItem("theme", selectedTheme);
-    applyLanguage(selectedLanguage);
-    applyTheme(selectedTheme);
-  }
-  function applyLanguage(language) {
-    const languageData = {
-      id: {
-        profileName: "Nama",
-        profileEmail: "Email",
-        profilePhone: "Nomor Telepon",
-        languageLabel: "Bahasa",
-        themeLabel: "Tema",
-      },
-      en: {
-        profileName: "Nama Pengembang",
-        profileEmail: "Email",
-        profilePhone: "Phone Number",
-        languageLabel: "Language",
-        themeLabel: "Theme",
-      },
-    };
-    document.getElementById("profileName").innerText = languageData[language].profileName + ": Cloud AhmadXyz";
-    document.getElementById("profileEmail").innerText = languageData[language].profileEmail + ": vortexionchannel@gmail.com";
-    document.getElementById("profilePhone").innerText = languageData[language].profilePhone + ": +62 815 271 00923";
-    document.getElementById("languageLabel").innerText = languageData[language].languageLabel;
-    document.getElementById("themeLabel").innerText = languageData[language].themeLabel;
-  }
-  function applyTheme(theme) {
-    if (theme === "dark") {
-      document.body.classList.add("bg-dark", "text-light");
-      document.body.classList.remove("bg-light", "text-dark");
-    } else {
-      document.body.classList.add("bg-light", "text-dark");
-      document.body.classList.remove("bg-dark", "text-light");
-    }
-  }
-  document.getElementById("profileLink").addEventListener("click", function(event) {
-    event.preventDefault();
-    var profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
-    profileModal.show();
-  });
-  document.getElementById("settingsLink").addEventListener("click", function(event) {
-    event.preventDefault();
-    var settingsModal = new bootstrap.Modal(document.getElementById('settingsModal'));
-    settingsModal.show();
-  });
-  document.getElementById("saveSettings").addEventListener("click", function() {
-    saveSettings();
-    var settingsModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
-    settingsModal.hide();
-  });
-  document.addEventListener("DOMContentLoaded", function() {
-    const language = localStorage.getItem("language") || "id"; 
-    const theme = localStorage.getItem("theme") || "light"; 
-    applyLanguage(language);
-    applyTheme(theme);
-    document.getElementById("languageSelect").value = language;
-    document.getElementById("themeSelect").value = theme;
-  });
-</script>
+ particlesJS('particles-js', {
+ particles: {
+ number: { value: 150 },
+ color: { value: '#00f3ff' },
+ shape: { type: 'circle' },
+ opacity: { value: 0.5 },
+ size: { value: 3 },
+ move: {
+ enable: true,
+ speed: 2,
+ direction: 'none',
+ random: true,
+ straight: false,
+ out_mode: 'out',
+ bounce: false
+ }
+ },
+ interactivity: {
+ detect_on: 'canvas',
+ events: {
+ onhover: { enable: true, mode: 'repulse' },
+ onclick: { enable: true, mode: 'push' },
+ resize: true
+ }
+ },
+ retina_detect: true
+ });
+ if ('getBattery' in navigator) {
+ navigator.getBattery().then(battery => {
+ function updateBatteryStatus() {
+ const batteryPercent = Math.floor(battery.level * 100);
+ document.getElementById('battery-level').textContent = `${batteryPercent}%`;
+ document.getElementById('battery-fill').style.width = `${batteryPercent}%`;
+ }
+ battery.addEventListener('levelchange', updateBatteryStatus);
+ updateBatteryStatus();
+ });
+ } else {
+ document.getElementById('battery-level').textContent = 'N/A';
+ }
+ let readiness = 87;
+ const readinessElement = document.getElementById('system-readiness');
+ setInterval(() => {
+ readiness = (readiness >= 100) ? 87 : readiness + Math.random();
+ readinessElement.textContent = `${Math.min(100, Math.floor(readiness))}%`;
+ }, 3000);
+ </script>
 </body>
 </html>
