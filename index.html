@@ -118,15 +118,63 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
                 <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" style="width: 40px;" alt="Avatar">
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="#">Profil</a></li>
-                <li><a class="dropdown-item" href="#">Pengaturan</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Keluar</a></li>
-              </ul>
-            </li>
-          </ul>
+<!-- Dropdown Menu -->
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+  <li><a class="dropdown-item" href="#" id="profileLink">Profil</a></li>
+  <li><a class="dropdown-item" href="#" id="settingsLink">Pengaturan</a></li>
+  <li><hr class="dropdown-divider"></li>
+  <li><a class="dropdown-item" href="#">Keluar</a></li>
+</ul>
+
+<!-- Modal Profil -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileModalLabel">Profile Website</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="profileName">Nama Pengembang: Cloud AhmadXyz</p>
+        <p id="profileEmail">Email: vortexionchannel@gmail.com</p>
+        <p id="profilePhone">Nomor Telepon: +6271527100923</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Pengaturan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="languageSelect" class="form-label" id="languageLabel">Bahasa</label>
+          <select class="form-select" id="languageSelect">
+            <option value="id">Bahasa Indonesia</option>
+            <option value="en">English</option>
+          </select>
         </div>
+        <div class="mb-3">
+          <label for="themeSelect" class="form-label" id="themeLabel">Tema</label>
+          <select class="form-select" id="themeSelect">
+            <option value="light">Terang</option>
+            <option value="dark">Gelap</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-primary" id="saveSettings">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+</div>
       </nav>
       <div class="container-fluid">
         <div class="mb-4">
@@ -308,5 +356,70 @@
       document.querySelector('.sidebar').classList.toggle('d-none');
     });
   </script>
+ <script>
+  function saveSettings() {
+    const selectedLanguage = document.getElementById("languageSelect").value;
+    const selectedTheme = document.getElementById("themeSelect").value;
+    localStorage.setItem("language", selectedLanguage);
+    localStorage.setItem("theme", selectedTheme);
+    applyLanguage(selectedLanguage);
+    applyTheme(selectedTheme);
+  }
+  function applyLanguage(language) {
+    const languageData = {
+      id: {
+        profileName: "Nama",
+        profileEmail: "Email",
+        profilePhone: "Nomor Telepon",
+        languageLabel: "Bahasa",
+        themeLabel: "Tema",
+      },
+      en: {
+        profileName: "Nama Pengembang",
+        profileEmail: "Email",
+        profilePhone: "Phone Number",
+        languageLabel: "Language",
+        themeLabel: "Theme",
+      },
+    };
+    document.getElementById("profileName").innerText = languageData[language].profileName + ": Cloud AhmadXyz";
+    document.getElementById("profileEmail").innerText = languageData[language].profileEmail + ": vortexionchannel@gmail.com";
+    document.getElementById("profilePhone").innerText = languageData[language].profilePhone + ": +62 815 271 00923";
+    document.getElementById("languageLabel").innerText = languageData[language].languageLabel;
+    document.getElementById("themeLabel").innerText = languageData[language].themeLabel;
+  }
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      document.body.classList.add("bg-dark", "text-light");
+      document.body.classList.remove("bg-light", "text-dark");
+    } else {
+      document.body.classList.add("bg-light", "text-dark");
+      document.body.classList.remove("bg-dark", "text-light");
+    }
+  }
+  document.getElementById("profileLink").addEventListener("click", function(event) {
+    event.preventDefault();
+    var profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
+    profileModal.show();
+  });
+  document.getElementById("settingsLink").addEventListener("click", function(event) {
+    event.preventDefault();
+    var settingsModal = new bootstrap.Modal(document.getElementById('settingsModal'));
+    settingsModal.show();
+  });
+  document.getElementById("saveSettings").addEventListener("click", function() {
+    saveSettings();
+    var settingsModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
+    settingsModal.hide();
+  });
+  document.addEventListener("DOMContentLoaded", function() {
+    const language = localStorage.getItem("language") || "id"; 
+    const theme = localStorage.getItem("theme") || "light"; 
+    applyLanguage(language);
+    applyTheme(theme);
+    document.getElementById("languageSelect").value = language;
+    document.getElementById("themeSelect").value = theme;
+  });
+</script>
 </body>
 </html>
