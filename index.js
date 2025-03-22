@@ -44,6 +44,23 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+app.get('/api/search-image', async (req, res) => {
+    const query = req.query.query;
+
+    if (!query) {
+        return res.status(400).json({ error: 'Query parameter "query" is required' });
+    }
+
+    try {
+        const { searchImage } = require('./scrape');
+        const images = await searchImage(query);
+        return res.json({ images });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'An error occurred while searching for images' });
+    }
+});
+
 app.get("/api/islamai", async (req, res) => {
   const { q } = req.query
   if (!q) {
