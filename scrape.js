@@ -327,26 +327,24 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 async function searchImage(query) {
     const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
 
-    const { data } = await axios.get(url, {
-        headers: {
-            "User-Agent": "Mozilla/5.0"
-        }
-    });
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: 'networkidle2' }); // Tunggu hingga halaman selesai dimuat
 
-    const $ = cheerio.load(data);
-    let images = [];
-
-    $('img').each((i, elem) => {
-        const imgUrl = $(elem).attr('data-src') || $(elem).attr('src');
-        
-        if (imgUrl && imgUrl.startsWith('http')) {
-            if (imgUrl.includes('hqdefault') || imgUrl.includes('imgres')) {
-                images.push(imgUrl);
+    const images = await page.evaluate(() => {
+        const imgElements = Array.from(document.querySelectorAll('img'));
+        let imageUrls = [];
+        imgElements.forEach(img => {
+            const src = img.src || img.getAttribute('data-src');
+            if (src && src.startsWith('http')) {
+                imageUrls.push(src);
             }
-        }
+        });
+        return imageUrls.slice(0, 10); // Ambil hingga 10 gambar pertama
     });
 
-    return images.length ? images.slice(0, 10) : 'Tidak ditemukan gambar';
+    await browser.close();
+    return images.length ? images : 'Tidak ditemukan gambar';
 }
 
 async function githubSearch(query, page = 1, lang = '') {
