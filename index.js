@@ -57,7 +57,7 @@ app.get('/api/search-image', async (req, res) => {
         const images = await searchImage(query);
         return res.json({ images });
     } catch (error) {
-        console.error(error);
+        console.error('Kesalahan pada endpoint /api/search-image:', error);
         return res.status(500).json({ error: 'Terjadi kesalahan saat mencari gambar' });
     }
 });
