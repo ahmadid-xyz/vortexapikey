@@ -77,27 +77,6 @@ app.get("/api/yts", async (req, res) => {
   }
 });
 
-app.get('/api/remove-bg', async (req, res) => {
-    const { imageUrl } = req.query;
-
-    if (!imageUrl) {
-        return res.status(400).json({ status: false, error: 'Parameter "imageUrl" tidak ditemukan' });
-    }
-
-    try {
-        const { removeBackground } = require ('./scrape);
-        const outputPath = await removeBackground(imageUrl);
-
-        // Membaca file yang sudah diproses
-        const imageBuffer = fs.readFileSync(outputPath);
-
-        // Mengembalikan gambar dalam response dengan header yang sesuai
-        res.set('Content-Type', 'image/png');
-        res.send(imageBuffer);
-    } catch (error) {
-        res.status(500).json({ status: false, error: 'Terjadi kesalahan saat menghapus latar belakang gambar.' });
-    }
-});
 
 app.get('/api/utf8', (req, res) => {
     const { encodedText } = req.query;
