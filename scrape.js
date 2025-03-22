@@ -7,6 +7,7 @@ const YTDL = require('@distube/ytdl-core')
 const cheerio = require('cheerio')
 const { createCanvas, loadImage } = require('canvas')
 const ytSearch = require('yt-search')
+const puppeteer = require('puppeteer')
 
 async function laheluSearch(query) {
  let { data } = await axios.get(`https://lahelu.com/api/post/get-search?query=${query}&cursor=cursor`)
@@ -327,24 +328,34 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
 async function searchImage(query) {
     const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
 
-    const browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2' }); // Tunggu hingga halaman selesai dimuat
-
-    const images = await page.evaluate(() => {
-        const imgElements = Array.from(document.querySelectorAll('img'));
-        let imageUrls = [];
-        imgElements.forEach(img => {
-            const src = img.src || img.getAttribute('data-src');
-            if (src && src.startsWith('http')) {
-                imageUrls.push(src);
-            }
+    try {
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
         });
-        return imageUrls.slice(0, 10); // Ambil hingga 10 gambar pertama
-    });
+        const page = await browser.newPage();
+        console.log('Membuka URL:', url);
+        await page.goto(url, { waitUntil: 'networkidle2' });
 
-    await browser.close();
-    return images.length ? images : 'Tidak ditemukan gambar';
+        const images = await page.evaluate(() => {
+            const imgElements = Array.from(document.querySelectorAll('img'));
+            let imageUrls = [];
+            imgElements.forEach(img => {
+                const src = img.src || img.getAttribute('data-src');
+                if (src && src.startsWith('http')) {
+                    imageUrls.push(src);
+                }
+            });
+            return imageUrls.slice(0, 10); 
+        });
+
+        console.log('Gambar ditemukan:', images);
+        await browser.close();
+        return images.length ? images : 'Tidak ditemukan gambar';
+    } catch (error) {
+        console.error('Kesalahan saat mencari gambar:', error);
+        throw error;
+    }
 }
 
 async function githubSearch(query, page = 1, lang = '') {
