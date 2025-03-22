@@ -102,6 +102,20 @@ app.get('/api/search-image', async (req, res) => {
 });
 
 
+app.get("/api/txt2imgv1", async (req, res) => {
+  const { q } = req.query
+  if (!q) {
+    return res.status(400).json({ status: false, error: "Query is required" })
+  }
+  try {
+    const response = await axios.get(`https://fastrestapis.fasturl.cloud/aiimage/multimix?prompt=${Enc(q)}&model=dalle`, { responseType: 'arraybuffer' })
+    res.setHeader('Content-Type', 'image/png')
+    res.send(response.data)
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message })
+  }
+});
+
 app.get("/api/islamai", async (req, res) => {
   const { q } = req.query
   if (!q) {
