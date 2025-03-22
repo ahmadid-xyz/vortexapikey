@@ -48,7 +48,7 @@ app.get('/api/search-image', async (req, res) => {
     const query = req.query.query;
 
     if (!query) {
-        return res.status(400).json({ error: 'Query parameter "query" is required' });
+        return res.status(400).json({ error: 'Parameter query "query" diperlukan' });
     }
 
     try {
@@ -57,7 +57,7 @@ app.get('/api/search-image', async (req, res) => {
         return res.json({ images });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: 'An error occurred while searching for images' });
+        return res.status(500).json({ error: 'Terjadi kesalahan saat mencari gambar' });
     }
 });
 
