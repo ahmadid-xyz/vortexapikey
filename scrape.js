@@ -337,13 +337,16 @@ async function searchImage(query) {
     let images = [];
 
     $('img').each((i, elem) => {
-        const imgUrl = $(elem).attr('src');
+        const imgUrl = $(elem).attr('data-src') || $(elem).attr('src');
+        
         if (imgUrl && imgUrl.startsWith('http')) {
-            images.push(imgUrl);
+            if (imgUrl.includes('hqdefault') || imgUrl.includes('imgres')) {
+                images.push(imgUrl);
+            }
         }
     });
 
-    return images.length ? images.slice(0, 10) : 'No images found';
+    return images.length ? images.slice(0, 10) : 'Tidak ditemukan gambar';
 }
 
 async function githubSearch(query, page = 1, lang = '') {
