@@ -61,6 +61,7 @@ app.get('/api/search-image', async (req, res) => {
     }
 });
 
+
 app.get("/api/islamai", async (req, res) => {
   const { q } = req.query
   if (!q) {
