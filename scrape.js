@@ -83,6 +83,39 @@ function viooai(content, user, prompt, imageBuffer) {
  })
  }
 
+async function searchImageWithOptions(query, limit = 10) {
+    const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
+
+    try {
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'], // Untuk kompatibilitas server
+        });
+        const page = await browser.newPage();
+        console.log('Membuka URL:', url);
+        await page.goto(url, { waitUntil: 'networkidle2' });
+
+        const images = await page.evaluate(() => {
+            const imgElements = Array.from(document.querySelectorAll('img'));
+            let imageUrls = [];
+            imgElements.forEach(img => {
+                const src = img.src || img.getAttribute('data-src');
+                if (src && src.startsWith('http')) {
+                    imageUrls.push(src);
+                }
+            });
+            return imageUrls;
+        });
+
+        console.log(`Gambar ditemukan: ${images.length}, mengambil hingga ${limit}`);
+        await browser.close();
+        return images.slice(0, limit); // Batasi jumlah gambar sesuai limit
+    } catch (error) {
+        console.error('Kesalahan saat mencari gambar dengan opsi:', error);
+        throw error;
+    }
+}
+
 async function BratGenerator(teks) {
   let width = 512;
   let height = 512;
@@ -789,5 +822,6 @@ module.exports = {
  ytsearch,
  bratv2,
  bingI,
- BratGenerator
+ BratGenerator,
+ searchImageWithOptions
 }
