@@ -85,7 +85,7 @@ function viooai(content, user, prompt, imageBuffer) {
 
 async function blackbox(content) {
 try {
-const response = await axios.post('https://luminai.my.id/', { content, cName: "Vortexion", cID: "Vioo0Uf9A72" })
+const response = await axios.post('https://luminai.my.id/', { content, cName: "Vortexion", cID: "Vortex0Uf9A72" })
 return response.data
 } catch (error) {
 console.error(error)
