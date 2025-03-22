@@ -3,6 +3,7 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 const axios = require('axios')
+const puppeteer = require('puppeteer')
 
 var app = express();
 app.enable("trust proxy");
