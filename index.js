@@ -58,6 +58,22 @@ app.get("/api/bratv1", async (req, res) => {
   }
 });
 
+app.get("/api/playstore", async (req, res) => {
+  const { q } = req.query
+  if (!q) {
+    return res.status(400).json({ status: false, error: "Query is required" })
+  }
+  try {
+    const response = await axios.get(`https://api.vreden.web.id/api/playstore?query=${Enc(q)}`)
+    res.status(200).json({
+    status: true,
+    data: response.data.result,
+    })
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message })
+  }
+});
+
 app.get('/api/toBase64', (req, res) => {
     const { text } = req.query;
 
