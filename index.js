@@ -45,6 +45,23 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+app.get("/api/blackbox", async (req, res) => {
+  const { q } = req.query
+  if (!q) {
+    return res.status(400).json({ status: false, error: "Query is required" })
+  }
+  try {
+    const { blackbox } = require('./scrape')
+    const response = await blackbox(`${Enc(q)}`)
+    res.status(200).json({
+    status: true,
+    result: response.result
+    })
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message })
+  }
+});
+
 app.get('/api/search-image-advanced', async (req, res) => {
     const query = req.query.query;
     const limit = parseInt(req.query.limit, 10) || 10; 
