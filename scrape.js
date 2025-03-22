@@ -83,6 +83,15 @@ function viooai(content, user, prompt, imageBuffer) {
  })
  }
 
+async function blackbox(content) {
+try {
+const response = await axios.post('https://luminai.my.id/', { content, cName: "Vioo", cID: "Vioo0Uf9A72" })
+return response.data
+} catch (error) {
+console.error(error)
+throw error
+}}
+
 async function searchImageWithOptions(query, limit = 10) {
     const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
 
@@ -823,5 +832,6 @@ module.exports = {
  bratv2,
  bingI,
  BratGenerator,
- searchImageWithOptions
+ searchImageWithOptions,
+ blackbox
 }
