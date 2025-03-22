@@ -20,6 +20,7 @@
  "crypto": "^1.0.1",
  "cheerio": "^1.0.0",
  "canvas": "^3.1.0",
- "yt-search": "^2.12.1"
+ "yt-search": "^2.12.1",
+ "puppeteer": "^19.0.0"
  }
 }
