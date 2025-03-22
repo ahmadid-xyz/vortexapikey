@@ -45,6 +45,28 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+app.get('/api/search-image-advanced', async (req, res) => {
+    const query = req.query.query;
+    const limit = parseInt(req.query.limit, 10) || 10; 
+
+    if (!query) {
+        return res.status(400).json({ error: 'Parameter query "query" diperlukan' });
+    }
+
+    if (limit <= 0 || limit > 50) {
+        return res.status(400).json({ error: 'Parameter limit harus di antara 1 dan 50' });
+    }
+
+    try {
+        const { searchImageWithOptions } = require('./scrape');
+        const images = await searchImageWithOptions(query, limit);
+        return res.json({ images });
+    } catch (error) {
+        console.error('Kesalahan pada endpoint /api/search-image-advanced:', error);
+        return res.status(500).json({ error: 'Terjadi kesalahan saat mencari gambar' });
+    }
+});
+
 app.get('/api/search-image', async (req, res) => {
     const query = req.query.query;
 
