@@ -7,6 +7,7 @@ const YTDL = require('@distube/ytdl-core')
 const cheerio = require('cheerio')
 const { createCanvas, loadImage } = require('canvas')
 const ytSearch = require('yt-search')
+const puppeteer = require('puppeteer')
 
 async function laheluSearch(query) {
  let { data } = await axios.get(`https://lahelu.com/api/post/get-search?query=${query}&cursor=cursor`)
