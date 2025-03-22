@@ -85,13 +85,15 @@ app.get('/api/remove-bg', async (req, res) => {
     }
 
     try {
-        const { removeBackground } = require(./scrape);
+        const { removeBackground } = require ('./scrape);
         const outputPath = await removeBackground(imageUrl);
-        res.json({
-            status: true,
-            creator: 'Vortex-Apis',
-            outputPath: outputPath
-        });
+
+        // Membaca file yang sudah diproses
+        const imageBuffer = fs.readFileSync(outputPath);
+
+        // Mengembalikan gambar dalam response dengan header yang sesuai
+        res.set('Content-Type', 'image/png');
+        res.send(imageBuffer);
     } catch (error) {
         res.status(500).json({ status: false, error: 'Terjadi kesalahan saat menghapus latar belakang gambar.' });
     }
