@@ -184,6 +184,220 @@ app.get("/api/blackbox", async (req, res) => {
   }
 });
 
+app.get('/api/game/family100', (req, res) => {
+    // Daftar 20 pertanyaan dan jawaban
+    const questions = [
+        {
+            question: "Sebutkan sesuatu yang sering dilakukan saat hujan.",
+            answers: [
+                { answer: "Tidur", points: 30 },
+                { answer: "Makan", points: 25 },
+                { answer: "Menonton TV", points: 20 },
+                { answer: "Minum Teh", points: 15 },
+                { answer: "Main HP", points: 10 },
+            ],
+        },
+        {
+            question: "Sebutkan makanan yang biasanya ada di acara ulang tahun.",
+            answers: [
+                { answer: "Kue Ulang Tahun", points: 40 },
+                { answer: "Mie Goreng", points: 30 },
+                { answer: "Ayam Goreng", points: 20 },
+                { answer: "Permen", points: 10 },
+                { answer: "Minuman Soda", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan hewan yang sering ada di kebun binatang.",
+            answers: [
+                { answer: "Singa", points: 35 },
+                { answer: "Gajah", points: 30 },
+                { answer: "Zebra", points: 20 },
+                { answer: "Jerapah", points: 10 },
+                { answer: "Monyet", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan benda yang sering ada di kamar tidur.",
+            answers: [
+                { answer: "Kasur", points: 40 },
+                { answer: "Bantal", points: 30 },
+                { answer: "Selimut", points: 20 },
+                { answer: "Lemari", points: 10 },
+                { answer: "Lampu", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan jenis buah yang berwarna kuning.",
+            answers: [
+                { answer: "Pisang", points: 50 },
+                { answer: "Mangga", points: 30 },
+                { answer: "Nanas", points: 20 },
+                { answer: "Jeruk Lemon", points: 15 },
+                { answer: "Melon Kuning", points: 10 },
+            ],
+        },
+        {
+            question: "Sebutkan pekerjaan yang menggunakan seragam.",
+            answers: [
+                { answer: "Polisi", points: 40 },
+                { answer: "Tentara", points: 30 },
+                { answer: "Dokter", points: 20 },
+                { answer: "Pilot", points: 10 },
+                { answer: "Guru", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan sesuatu yang ada di meja makan.",
+            answers: [
+                { answer: "Piring", points: 40 },
+                { answer: "Sendok", points: 30 },
+                { answer: "Gelas", points: 20 },
+                { answer: "Makanan", points: 10 },
+                { answer: "Tisu", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan alasan seseorang terlambat ke sekolah.",
+            answers: [
+                { answer: "Bangun Kesiangan", points: 50 },
+                { answer: "Macet", points: 30 },
+                { answer: "Hujan", points: 20 },
+                { answer: "Lupa PR", points: 15 },
+                { answer: "Sarapan Lama", points: 10 },
+            ],
+        },
+        {
+            question: "Sebutkan binatang yang bisa terbang.",
+            answers: [
+                { answer: "Burung", points: 50 },
+                { answer: "Kelelawar", points: 30 },
+                { answer: "Serangga", points: 20 },
+                { answer: "Lebah", points: 10 },
+                { answer: "Kupu-kupu", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan sesuatu yang ada di taman bermain.",
+            answers: [
+                { answer: "Ayunan", points: 40 },
+                { answer: "Perosotan", points: 30 },
+                { answer: "Jungkat-Jungkit", points: 20 },
+                { answer: "Pasir", points: 10 },
+                { answer: "Papan Panjat", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan nama alat musik yang dimainkan dengan ditiup.",
+            answers: [
+                { answer: "Seruling", points: 40 },
+                { answer: "Saksofon", points: 30 },
+                { answer: "Trompet", points: 20 },
+                { answer: "Klarinet", points: 10 },
+                { answer: "Harmonika", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan olahraga yang menggunakan bola.",
+            answers: [
+                { answer: "Sepak Bola", points: 40 },
+                { answer: "Basket", points: 30 },
+                { answer: "Voli", points: 20 },
+                { answer: "Tenis", points: 10 },
+                { answer: "Biliar", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan sesuatu yang biasanya ada di dapur.",
+            answers: [
+                { answer: "Kompor", points: 40 },
+                { answer: "Panci", points: 30 },
+                { answer: "Pisau", points: 20 },
+                { answer: "Sendok", points: 10 },
+                { answer: "Rak Piring", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan sesuatu yang sering ada di bioskop.",
+            answers: [
+                { answer: "Popcorn", points: 40 },
+                { answer: "Minuman", points: 30 },
+                { answer: "Layar Besar", points: 20 },
+                { answer: "Kursi", points: 10 },
+                { answer: "Tiket", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan sesuatu yang ada di kantor.",
+            answers: [
+                { answer: "Komputer", points: 40 },
+                { answer: "Meja", points: 30 },
+                { answer: "Kursi", points: 20 },
+                { answer: "Printer", points: 10 },
+                { answer: "File", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan nama buah yang memiliki banyak air.",
+            answers: [
+                { answer: "Semangka", points: 50 },
+                { answer: "Jeruk", points: 30 },
+                { answer: "Melon", points: 20 },
+                { answer: "Nanas", points: 10 },
+                { answer: "Pir", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan sesuatu yang bisa meledak.",
+            answers: [
+                { answer: "Balon", points: 40 },
+                { answer: "Kembang Api", points: 30 },
+                { answer: "Ban", points: 20 },
+                { answer: "Kompor Gas", points: 10 },
+                { answer: "Bom", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan nama minuman yang biasa diminum saat pagi.",
+            answers: [
+                { answer: "Kopi", points: 40 },
+                { answer: "Teh", points: 30 },
+                { answer: "Susu", points: 20 },
+                { answer: "Air Putih", points: 10 },
+                { answer: "Coklat Panas", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan aktivitas yang sering dilakukan di pantai.",
+            answers: [
+                { answer: "Berenang", points: 40 },
+                { answer: "Main Pasir", points: 30 },
+                { answer: "Berjemur", points: 20 },
+                { answer: "Foto-Foto", points: 10 },
+                { answer: "Main Bola", points: 5 },
+            ],
+        },
+        {
+            question: "Sebutkan sesuatu yang ada di mobil.",
+            answers: [
+                { answer: "Stir", points: 40 },
+                { answer: "Ban", points: 30 },
+                { answer: "Jok", points: 20 },
+                { answer: "Spion", points: 10 },
+                { answer: "Seatbelt", points: 5 },
+            ],
+        },
+    ];
+
+    const randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+
+    res.status(200).json({
+        status: true,
+        question: randomQuestion.question,
+        answers: randomQuestion.answers,
+    });
+});
+
 app.get('/api/search-image-advanced', async (req, res) => {
     const query = req.query.query;
     const limit = parseInt(req.query.limit, 10) || 10; 
