@@ -101,6 +101,26 @@ app.get('/api/search-image-advanced', async (req, res) => {
     }
 });
 
+app.get('/api/jadwalsholat', async (req, res) => {
+  const { q } = req.query;
+
+  if (!q) {
+    return res.status(400).json({ status: false, error: "Query parameter 'q' is required" });
+  }
+
+  try {
+    const { JadwalSholat } = require('./scrape')
+    const response = await JadwalSholat.byCity(q);
+    res.status(200).json({
+      status: true,
+      creator: 'Vortex-Apis',
+      data: response
+    });
+  } catch (error) {
+    res.status(500).json({ status: false, error: error.message });
+  }
+});
+
 app.get('/api/search-image', async (req, res) => {
     const query = req.query.query;
 
