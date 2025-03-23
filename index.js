@@ -4,6 +4,8 @@ const os = require('os');
 const fs = require('fs');
 const axios = require('axios')
 const puppeteer = require('puppeteer')
+const GOOGLE_API_KEY = 'AIzaSyAF7_lElinN4yeOFBGwkeRpOOxb7y6Tm0o';
+const SEARCH_ENGINE_ID = 'd79167a8553274bd3';
 
 var app = express();
 app.enable("trust proxy");
@@ -43,6 +45,48 @@ app.get('/stats', (req, res) => {
  memoryUsage: process.memoryUsage()
  };
  res.json(stats);
+});
+
+app.get('/api/google/search', async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q) {
+            return res.status(400).json({
+                status: false,
+                creator: 'Vortex-Apis',
+                message: "Parameter 'q' (query) tidak ditemukan"
+            });
+        }
+        const googleApiUrl = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(q)}`;
+
+        const response = await axios.get(googleApiUrl);
+        const results = response.data.items || [];
+
+        if (results.length === 0) {
+            return res.status(404).json({
+                status: false,
+                creator: 'Vortex-Apis',
+                message: "Hasil pencarian tidak ditemukan"
+            });
+        }
+
+        res.status(200).json({
+            status: true,
+            creator: 'Vortex-Apis',
+            data: results.map(item => ({
+                title: item.title,
+                link: item.link,
+                snippet: item.snippet
+            }))
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            status: false,
+            creator: 'Vortex-Apis',
+            message: "Server sedang error :("
+        });
+    }
 });
 
 app.get("/api/bratv2", async (req, res) => {
