@@ -1418,5 +1418,6 @@ module.exports = {
  bingI,
  BratGenerator,
  searchImageWithOptions,
- blackbox
+ blackbox,
+ JadwalSholat
 }
