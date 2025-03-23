@@ -88,34 +88,6 @@ app.get('/api/islam/nosurat', async (req, res) => {
     }
 });
 
-app.get('/api/islam/namasurat', async (req, res) => {
-    try {
-        const { q } = req.query
-        const listSurat = await axios.get('https://api.npoint.io/99c279bb173a6e28359c/data');
-        const findSurah = listSurat.data.find(surah => surah.nama === q);
-
-        if (!findSurah) {
-            return res.status(404).json({
-                status: false,
-                creator: 'ikann',
-                message: "Surah tidak ditemukan"
-            });
-        }
-
-        res.status(200).json({
-            status: true,
-            creator: 'vortex-apis',
-            data: findSurah
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: false,
-            creator: 'vortex-apis',
-            message: "Server sedang error :("
-        });
-    }
-});
-
 app.get("/api/blackbox", async (req, res) => {
   const { q } = req.query
   if (!q) {
