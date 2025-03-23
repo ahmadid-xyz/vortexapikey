@@ -6,6 +6,7 @@ const axios = require('axios')
 const puppeteer = require('puppeteer')
 const GOOGLE_API_KEY = 'AIzaSyAF7_lElinN4yeOFBGwkeRpOOxb7y6Tm0o';
 const SEARCH_ENGINE_ID = 'd79167a8553274bd3';
+const apikeymubang = 'Bwm8iulM9-4ESOHw5ta7E_U4BvwI0N6Q1TwCVYDJqLo';
 
 var app = express();
 app.enable("trust proxy");
@@ -85,6 +86,40 @@ app.get('/api/google/search', async (req, res) => {
             status: false,
             creator: 'Vortex-Apis',
             message: "Server sedang error :("
+        });
+    }
+});
+
+app.get('/api/image/search', async (req, res) => {
+    const { q } = req.query;
+
+    if (!q) {
+        return res.status(400).json({
+            status: false,
+            message: 'Query parameter "q" is required'
+        });
+    }
+
+    try {
+        const response = await axios.get('https://api.unsplash.com/search/photos', {
+            params: { query: q, per_page: 10 },
+            headers: {
+                Authorization: `Client-ID ${apikeymubang}`
+            }
+        });
+
+        const imageUrls = response.data.results.map(image => image.urls.full);
+
+        res.status(200).json({
+            status: true,
+            query: q,
+            images: imageUrls
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            message: 'Terjadi kesalahan saat mengambil gambar',
+            error: error.message
         });
     }
 });
