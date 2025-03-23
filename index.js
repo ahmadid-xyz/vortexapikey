@@ -57,7 +57,7 @@ app.get('/api/google/search', async (req, res) => {
                 message: "Parameter 'q' (query) tidak ditemukan"
             });
         }
-        const googleApiUrl = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${SEARCH_ENGINE_ID}&q=${encodeURIComponent(q)}`;
+        const googleApiUrl = `https://www.googleapis.com/customsearch/v1?key=AIzaSyAF7_lElinN4yeOFBGwkeRpOOxb7y6Tm0o&cx=d79167a8553274bd3&q=${encodeURIComponent(q)}`;
 
         const response = await axios.get(googleApiUrl);
         const results = response.data.items || [];
