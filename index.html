@@ -84,6 +84,39 @@
  .scroll-to-top:hover {
  background: #374151;
  }
+ 
+ #visitCount {
+ font-size: 1rem;
+ font-weight: 500;
+}
+
+/* CSS untuk video webcam */
+video {
+ display: block; /* Hindari margin bawaan inline elements */
+ margin: 0 auto; /* Tengah di layar */
+ border-radius: 10px; /* Sudut melengkung, opsional */
+ border: 2px solid #ccc; /* Tambahkan border, opsional */
+ background: #000; /* Background hitam jika tidak ada feed */
+ width: 100%; /* Responsif sesuai container */
+ max-width: 640px; /* Maksimal lebar 640px */
+ height: auto; /* Sesuaikan tinggi proporsional */
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Tambahkan efek bayangan */
+}
+
+.video-ad {
+ position: fixed; /* Tetap di atas konten */
+ top: 50%; /* Tengah secara vertikal */
+ left: 50%; /* Tengah secara horizontal */
+ transform: translate(-50%, -50%); /* Pusatkan ke titik tengah */
+ width: 600px; /* Lebar video */
+ height: 338px; /* Tinggi video (16:9 ratio) */
+ z-index: 9999; /* Di atas semua elemen */
+ background: rgba(0, 0, 0, 0.7); /* Opsional: Tambahkan background semi-transparan */
+ border-radius: 10px; /* Opsional: Buat sudut membulat */
+ overflow: hidden;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+}
+
  </style>
 </head>
 <body id="top">
@@ -181,6 +214,12 @@
  <h2 class="fw-bold">Dashboard API</h2>
  <p class="text-muted">Selamat datang! Klik tombol "Go To Api" pada sidebar menu untuk mengeksplorasi seluruh layanan API kami.</p>
  </div>
+ <div class="col-md-4">
+ <div class="card text-center">
+ <p class="card-bold">Informasi</p>
+ <p id="visitCount" class="text-muted">Memuat...</p>
+ <p id="visitHistory" class="text-muted">Memuat...</p>
+</div>
  <div class="row">
  <div class="col-lg-12">
  <div class="card">
@@ -358,6 +397,7 @@
  </a>
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
  <script>
  function updateClock() {
  const now = new Date();
@@ -447,6 +487,102 @@
  document.getElementById("languageSelect").value = language;
  document.getElementById("themeSelect").value = theme;
  });
+</script>
+
+<script>
+ // Fungsi untuk memperbarui jumlah kunjungan
+ function updateVisitCount() {
+ const visitKey = "visitCount"; // Key untuk menyimpan data kunjungan di localStorage
+ const currentCount = parseInt(localStorage.getItem(visitKey)) || 0; // Ambil data dari localStorage atau mulai dari 0
+ const newCount = currentCount + 1; // Tambah kunjungan
+ localStorage.setItem(visitKey, newCount); // Simpan data kunjungan terbaru ke localStorage
+ document.getElementById("visitCount").textContent = `Total Penggunaan: ${newCount} kali`;
+ }
+
+ // Panggil fungsi saat halaman dimuat
+ document.addEventListener("DOMContentLoaded", function () {
+ updateVisitCount();
+ });
+ 
+ let startTime = Date.now();
+
+window.addEventListener("beforeunload", () => {
+ const duration = Math.floor((Date.now() - startTime) / 1000);
+ alert(`Kamu menghabiskan ${duration} detik di halaman ini.`);
+});
+
+const lastVisit = localStorage.getItem("lastVisit") || "Belum pernah berkunjung.";
+document.getElementById("visitHistory").textContent = `Terakhir berkunjung: ${lastVisit}`;
+localStorage.setItem("lastVisit", new Date().toLocaleString());
+
+async function setupCamera() {
+ const video = document.getElementById('video');
+ const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+ video.srcObject = stream;
+ await video.play();
+}
+setupCamera();
+
+Promise.all([
+ faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+ faceapi.nets.faceExpressionNet.loadFromUri('/models')
+]).then(startDetection);
+
+async function startDetection() {
+ const video = document.getElementById('video');
+
+ video.addEventListener('play', () => {
+ const canvas = faceapi.createCanvasFromMedia(video);
+ document.body.append(canvas);
+ const displaySize = { width: video.width, height: video.height };
+ faceapi.matchDimensions(canvas, displaySize);
+
+ setInterval(async () => {
+ const detections = await faceapi
+ .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+ .withFaceExpressions();
+
+ const resizedDetections = faceapi.resizeResults(detections, displaySize);
+ canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+
+ faceapi.draw.drawDetections(canvas, resizedDetections);
+ faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+
+ // Ambil emosi dengan confidence tertinggi
+ if (detections.length > 0) {
+ const emotions = detections[0].expressions;
+ const dominantEmotion = Object.keys(emotions).reduce((a, b) =>
+ emotions[a] > emotions[b] ? a : b
+ );
+ console.log("Dominant emotion: ", dominantEmotion);
+ // Lakukan sesuatu berdasarkan emosi
+ }
+ }, 100);
+ });
+}
+
+function updateUI(emotion) {
+ const message = document.getElementById('message');
+ switch (emotion) {
+ case 'happy':
+ message.textContent = 'Yay! Senang melihatmu bahagia!';
+ document.body.style.backgroundColor = '#FFD700';
+ break;
+ case 'sad':
+ message.textContent = 'Jangan sedih, semuanya akan baik-baik saja.';
+ document.body.style.backgroundColor = '#87CEEB';
+ break;
+ default:
+ message.textContent = 'Apa kabar? 😊';
+ document.body.style.backgroundColor = '#FFFFFF';
+ break;
+ }
+}
+
+const video = document.querySelector('video');
+video.play().catch(error => {
+ console.error('Error trying to play the video:', error);
+});
 </script>
 </body>
 </html>
