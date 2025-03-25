@@ -515,69 +515,6 @@ const lastVisit = localStorage.getItem("lastVisit") || "Belum pernah berkunjung.
 document.getElementById("visitHistory").textContent = `Terakhir berkunjung: ${lastVisit}`;
 localStorage.setItem("lastVisit", new Date().toLocaleString());
 
-async function setupCamera() {
- const video = document.getElementById('video');
- const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
- video.srcObject = stream;
- await video.play();
-}
-setupCamera();
-
-Promise.all([
- faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
- faceapi.nets.faceExpressionNet.loadFromUri('/models')
-]).then(startDetection);
-
-async function startDetection() {
- const video = document.getElementById('video');
-
- video.addEventListener('play', () => {
- const canvas = faceapi.createCanvasFromMedia(video);
- document.body.append(canvas);
- const displaySize = { width: video.width, height: video.height };
- faceapi.matchDimensions(canvas, displaySize);
-
- setInterval(async () => {
- const detections = await faceapi
- .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
- .withFaceExpressions();
-
- const resizedDetections = faceapi.resizeResults(detections, displaySize);
- canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-
- faceapi.draw.drawDetections(canvas, resizedDetections);
- faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
-
- // Ambil emosi dengan confidence tertinggi
- if (detections.length > 0) {
- const emotions = detections[0].expressions;
- const dominantEmotion = Object.keys(emotions).reduce((a, b) =>
- emotions[a] > emotions[b] ? a : b
- );
- console.log("Dominant emotion: ", dominantEmotion);
- // Lakukan sesuatu berdasarkan emosi
- }
- }, 100);
- });
-}
-
-function updateUI(emotion) {
- const message = document.getElementById('message');
- switch (emotion) {
- case 'happy':
- message.textContent = 'Yay! Senang melihatmu bahagia!';
- document.body.style.backgroundColor = '#FFD700';
- break;
- case 'sad':
- message.textContent = 'Jangan sedih, semuanya akan baik-baik saja.';
- document.body.style.backgroundColor = '#87CEEB';
- break;
- default:
- message.textContent = 'Apa kabar? 😊';
- document.body.style.backgroundColor = '#FFFFFF';
- break;
- }
-}
 
 
 </script>
