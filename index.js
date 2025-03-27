@@ -167,6 +167,45 @@ app.get('/api/islam/nosurat', async (req, res) => {
     }
 });
 
+app.get('/api/game/tebakmakanan', (req, res) => {
+    const foods = [
+        { name: "Pizza", description: "Makanan khas Italia dengan topping keju dan saus tomat di atas roti pipih." },
+        { name: "Sushi", description: "Makanan Jepang yang terdiri dari nasi dengan isian ikan mentah atau sayuran." },
+        { name: "Nasi Goreng", description: "Makanan khas Indonesia yang digoreng dengan kecap manis, telur, dan bumbu rempah." },
+        { name: "Burger", description: "Roti bundar yang diisi dengan daging, sayuran, dan saus." },
+        { name: "Rendang", description: "Masakan daging khas Padang yang dimasak dengan santan dan bumbu rempah." },
+        { name: "Es Krim", description: "Hidangan penutup dingin yang terbuat dari susu dengan berbagai rasa manis." },
+        { name: "Martabak", description: "Makanan manis atau gurih yang diisi dengan cokelat, keju, atau telur." },
+        { name: "Mie Ayam", description: "Mie yang disajikan dengan ayam berbumbu dan kuah gurih." },
+        { name: "Sate", description: "Potongan daging yang ditusuk dan dibakar, disajikan dengan saus kacang." },
+        { name: "Bakso", description: "Bola daging yang disajikan dalam kuah kaldu dengan mie atau bihun." },
+    ];
+
+    const randomFood = foods[Math.floor(Math.random() * foods.length)];
+
+    res.status(200).json({
+        status: true,
+        description: randomFood.description,
+        correctAnswer: randomFood.name,
+    });
+});
+
+app.post('/api/game/tebakmakanan', (req, res) => {
+    const { guess, correctAnswer } = req.body;
+
+    if (!guess || !correctAnswer) {
+        return res.status(400).json({ status: false, message: "Data tidak lengkap." });
+    }
+
+    const isCorrect = guess.toLowerCase() === correctAnswer.toLowerCase();
+
+    res.status(200).json({
+        status: true,
+        isCorrect,
+        message: isCorrect ? "Tebakan kamu benar!" : "Tebakan kamu salah, coba lagi!",
+    });
+});
+
 app.get("/api/blackbox", async (req, res) => {
   const { q } = req.query
   if (!q) {
