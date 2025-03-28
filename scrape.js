@@ -677,6 +677,47 @@ console.error(error)
 throw error
 }}
 
+async function getLyrics(judulLagu) {
+  try {
+    const response = await fetch(
+      `https://r.jina.ai/https://www.google.com/search?q=lirik+lagu+${encodeURIComponent(judulLagu)}&hl=en`,
+      { headers: { "x-return-format": "html", "x-engine": "cf-browser-rendering" } }
+    );
+
+    // Cek apakah respons berhasil
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+    }
+
+    const html = await response.text();
+    const $ = cheerio.load(html);
+    const lirik = [];
+    const output = {};
+    
+    $("div[jsname='U8S5sf']").each((_, el) => {
+      let out = "";
+      $(el).find('span[jsname="YS01Ge"]').each((_, span) => {
+        out += $(span).text() + "\n";
+      });
+      lirik.push(out.trim());
+    });
+
+    output.lyrics = lirik.join("\n\n");
+    output.title = $("div.PZPZlf").first().text().trim() || judulLagu;
+    
+    // Jika tidak menemukan lirik
+    if (!output.lyrics) throw new Error("No lyrics found");
+
+    return output;
+  } catch (error) {
+    return { 
+      title: judulLagu, 
+      lyrics: "Lirik tidak ditemukan.",
+      error: error.message // Tambahkan pesan error untuk debugging
+    };
+  }
+}
+
 async function searchImageWithOptions(query, limit = 10) {
     const url = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
 
