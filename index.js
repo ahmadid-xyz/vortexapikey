@@ -48,6 +48,26 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+app.get("/api/search/lirik", async (req, res) => {
+  const { q } = req.query;
+
+  if (!q) {
+    return res.status(400).json({
+      error: "Query parameter 'q' diperlukan untuk mencari lirik.",
+    });
+  }
+
+  try {
+    const hasil = await getLyrics(q);
+    res.json(hasil);
+  } catch (error) {
+    res.status(500).json({
+      error: "Terjadi kesalahan saat mencari lirik.",
+      details: error.message,
+    });
+  }
+});
+
 app.get('/api/google/search', async (req, res) => {
     try {
         const { q } = req.query;
