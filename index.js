@@ -58,6 +58,7 @@ app.get("/api/search/lirik", async (req, res) => {
   }
 
   try {
+    const { getLyrics } = require('./scrape');
     const hasil = await getLyrics(q);
     res.json(hasil);
   } catch (error) {
