@@ -8,6 +8,7 @@ const cheerio = require('cheerio')
 const { createCanvas, loadImage } = require('canvas')
 const ytSearch = require('yt-search')
 const puppeteer = require('puppeteer')
+const fetch = require('node-fetch')
 
 async function laheluSearch(query) {
  let { data } = await axios.get(`https://lahelu.com/api/post/get-search?query=${query}&cursor=cursor`)
@@ -1460,5 +1461,6 @@ module.exports = {
  BratGenerator,
  searchImageWithOptions,
  blackbox,
- JadwalSholat
+ JadwalSholat,
+ getLyrics
 }
