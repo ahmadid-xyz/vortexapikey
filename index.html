@@ -3,389 +3,344 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>Next Generation APIs - Dashboard</title>
-<meta name="keywords" content="vor api, vortexion bot, bot vortex, vortex ai, chat gpt, bot WhatsApp, developer baileys, baileys official, baileys button, bot button, baileys interactive, WhatsApp bot, WhatsApp bot interactive, vortexion apikey, vortexion official">
+ <title>Vor-APIs Modern API Gratis</title>
+ <meta name="keywords" content="perusahaan, portofolio, modern, profesional, corporate, company, API">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
  <style>
-
  body {
  font-family: 'Roboto', sans-serif;
- background: #f1f4f9;
- color: #333;
+ line-height: 1.6;
+ color: #444;
  }
  a {
  text-decoration: none;
+ color: inherit;
+ transition: color 0.3s;
  }
- 
- .sidebar {
- background: #1f2937;
- min-height: 100vh;
- color: #cbd5e1;
- }
- .sidebar .nav-link {
- color: #cbd5e1;
- transition: background 0.3s, color 0.3s;
- }
- .sidebar .nav-link:hover, .sidebar .nav-link.active {
- background: #374151;
- color: #fff;
- }
- .sidebar .sidebar-brand {
- font-size: 1.25rem;
- font-weight: 500;
- color: #fff;
- padding: 1rem;
- text-align: center;
- border-bottom: 1px solid #374151;
- }
- .sidebar img {
- width: 50px;
- margin-bottom: 0.5rem;
+ a:hover {
+ color: #d82007;
  }
  
  .navbar {
  background: #fff;
- box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+ box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+ padding: 0.8rem 1rem;
  }
- 
- .card {
- border: none;
- border-radius: 0.75rem;
- box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
- margin-bottom: 1.5rem;
- }
- .card-title {
+ .navbar-brand {
  font-weight: 700;
+ font-size: 1.5rem;
+ color: #d82007;
+ }
+ .nav-link {
+ font-size: 1rem;
+ padding: 0.8rem;
+ color: #444 !important;
+ }
+ .nav-link.active, .nav-link:hover {
+ color: #d82007 !important;
  }
  
- .footer {
- background: #fff;
- padding: 1rem;
- text-align: center;
- border-top: 1px solid #e5e7eb;
- }
-
- .scroll-to-top {
- position: fixed;
- bottom: 1rem;
- right: 1rem;
- background: #1f2937;
+ .hero {
+ background: url('https://files.catbox.moe/vkmswh.jpg') no-repeat center center/cover;
+ min-height: 90vh;
+ position: relative;
  color: #fff;
- width: 45px;
- height: 45px;
- border-radius: 50%;
  display: flex;
  align-items: center;
  justify-content: center;
- transition: background 0.3s;
+ text-align: center;
  }
- .scroll-to-top:hover {
- background: #374151;
+ .hero::before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: rgba(0, 0, 0, 0.5);
+ }
+ .hero-content {
+ position: relative;
+ z-index: 1;
+ }
+ .hero h1 {
+ font-size: 3rem;
+ font-weight: 700;
+ }
+ .hero p {
+ font-size: 1.25rem;
  }
  
- #visitCount {
- font-size: 1rem;
- font-weight: 500;
-}
-
-/* CSS untuk video webcam */
-video {
- display: block; /* Hindari margin bawaan inline elements */
- margin: 0 auto; /* Tengah di layar */
- border-radius: 10px; /* Sudut melengkung, opsional */
- border: 2px solid #ccc; /* Tambahkan border, opsional */
- background: #000; /* Background hitam jika tidak ada feed */
- width: 100%; /* Responsif sesuai container */
- max-width: 640px; /* Maksimal lebar 640px */
- height: auto; /* Sesuaikan tinggi proporsional */
- box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Tambahkan efek bayangan */
-}
-
-.video-ad {
- position: fixed; /* Tetap di atas konten */
- top: 50%; /* Tengah secara vertikal */
- left: 50%; /* Tengah secara horizontal */
- transform: translate(-50%, -50%); /* Pusatkan ke titik tengah */
- width: 600px; /* Lebar video */
- height: 338px; /* Tinggi video (16:9 ratio) */
- z-index: 9999; /* Di atas semua elemen */
- background: rgba(0, 0, 0, 0.7); /* Opsional: Tambahkan background semi-transparan */
- border-radius: 10px; /* Opsional: Buat sudut membulat */
+ section {
+ padding: 4rem 0;
+ }
+ h2 {
+ font-weight: 700;
+ margin-bottom: 1.5rem;
+ }
+ 
+ #about {
+ background: #f9f9f9;
+ }
+ 
+ #services .card {
+ border: none;
+ border-radius: 0.75rem;
+ box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+ transition: transform 0.3s;
+ }
+ #services .card:hover {
+ transform: translateY(-5px);
+ }
+ #services .card i {
+ font-size: 2rem;
+ color: #d82007;
+ margin-bottom: 1rem;
+ }
+ 
+ #portfolio {
+ background: #f9f9f9;
+ }
+ #portfolio .portfolio-item {
  overflow: hidden;
- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
-}
-
+ border-radius: 0.75rem;
+ position: relative;
+ }
+ #portfolio .portfolio-item img {
+ width: 100%;
+ transition: transform 0.4s;
+ }
+ #portfolio .portfolio-item:hover img {
+ transform: scale(1.1);
+ }
+ #portfolio .portfolio-item::after {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: rgba(216, 32, 7, 0.6);
+ opacity: 0;
+ transition: opacity 0.4s;
+ }
+ #portfolio .portfolio-item:hover::after {
+ opacity: 1;
+ }
+ 
+ #contact form .form-control {
+ border-radius: 0.5rem;
+ }
+ 
+ footer {
+ background: #333;
+ color: #bbb;
+ padding: 2rem 0;
+ }
+ footer a {
+ color: #d82007;
+ }
+ 
+ .modal-header {
+ background: #d82007;
+ color: #fff;
+ }
+ .modal-body h6 {
+ color: #d82007;
+ margin-top: 1rem;
+ }
+ .list-group-item {
+ border: none;
+ border-bottom: 1px solid #f1f1f1;
+ }
  </style>
 </head>
-<body id="top">
- <div class="d-flex">
- <nav class="sidebar p-3">
- <div class="sidebar-brand">
- <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" alt="Avatar">
- <div>Vor APIs</div>
- </div>
- <ul class="nav flex-column mt-4">
- <li class="nav-item mb-2">
- <a class="nav-link active" href="#">
- <i class="fas fa-thermometer-three-quarters me-2"></i>
- STATUS
- </a>
- </li>
- <li class="nav-item mt-3">
- <button class="btn btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#apiModal">
- <i class="fas fa-list me-2"></i> Go To Api
- </button>
- </li>
- </ul>
- </nav>
- <div class="flex-grow-1">
- <nav class="navbar navbar-expand navbar-light mb-4">
- <div class="container-fluid">
- <button class="btn btn-outline-secondary" id="sidebarToggle">
- <i class="fas fa-bars"></i>
- </button>
- <ul class="navbar-nav ms-auto">
- <li class="nav-item dropdown">
- <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
- <img src="https://files.catbox.moe/7hm4hj.jpg" class="rounded-circle" style="width: 40px;" alt="Avatar">
- </a>
-<!-- Dropdown Menu -->
-<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
- <li><a class="dropdown-item" href="#" id="profileLink">Profil</a></li>
- <li><a class="dropdown-item" href="#" id="settingsLink">Pengaturan</a></li>
- <li><hr class="dropdown-divider"></li>
- <li><a class="dropdown-item" href="#">Keluar</a></li>
-</ul>
-
-<!-- Modal Profil -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
- <div class="modal-dialog">
- <div class="modal-content">
- <div class="modal-header">
- <h5 class="modal-title" id="profileModalLabel">Profile Website</h5>
- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
- </div>
- <div class="modal-body">
- <p id="profileName">Nama Pengembang: Cloud AhmadXyz</p>
- <p id="profileEmail">Email: vortexionchannel@gmail.com</p>
- <p id="profilePhone">Nomor Telepon: +6271527100923</p>
- </div>
- <div class="modal-footer">
- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
- </div>
- </div>
- </div>
-</div>
-<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
- <div class="modal-dialog">
- <div class="modal-content">
- <div class="modal-header">
- <h5 class="modal-title" id="settingsModalLabel">Pengaturan</h5>
- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
- </div>
- <div class="modal-body">
- <div class="mb-3">
- <label for="languageSelect" class="form-label" id="languageLabel">Bahasa</label>
- <select class="form-select" id="languageSelect">
- <option value="id">Bahasa Indonesia</option>
- <option value="en">English</option>
- </select>
- </div>
- <div class="mb-3">
- <label for="themeSelect" class="form-label" id="themeLabel">Tema</label>
- <select class="form-select" id="themeSelect">
- <option value="light">Terang</option>
- <option value="dark">Gelap</option>
- </select>
- </div>
- </div>
- <div class="modal-footer">
- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
- <button type="button" class="btn btn-primary" id="saveSettings">Simpan Perubahan</button>
- </div>
- </div>
- </div>
-</div>
- </nav>
- <div class="container-fluid">
- <div class="mb-4">
- <h2 class="fw-bold">Dashboard API</h2>
- <p class="text-muted">Selamat datang! Klik tombol "Go To Api" pada sidebar menu untuk mengeksplorasi seluruh layanan API kami.</p>
- </div>
- <div class="col-md-4">
- <div class="card text-center">
- <p class="card-bold">Informasi</p>
- <p id="visitCount" class="text-muted">Memuat...</p>
- <p id="visitHistory" class="text-muted">Memuat...</p>
-</div>
- <div class="row">
- <div class="col-lg-12">
- <div class="card">
- <div class="card-body">
- <h5 class="card-title text-primary">Project Oleh</h5>
- <p class="card-text">Vortex Fukushima Team</p>
- </div>
- </div>
- </div>
- </div>
- <div class="row">
- <div class="col-md-4">
- <div class="card text-center">
- <div class="card-body">
- <h6 class="text-muted">Post</h6>
- <h4 id="postCount" class="fw-bold">0</h4>
- <i class="fas fa-fire fa-2x text-warning"></i>
- </div>
- </div>
- </div>
- <div class="col-md-4">
- <div class="card text-center">
- <div class="card-body">
- <h6 class="text-muted">Battery</h6>
- <h4 id="batteryLevel" class="fw-bold">100%</h4>
- <i class="fas fa-battery-full fa-2x text-success"></i>
- </div>
- </div>
- </div>
- <div class="col-md-4">
- <div class="card text-center">
- <div class="card-body">
- <h6 class="text-muted">Waktu</h6>
- <h4 id="currentTime" class="fw-bold">Loading...</h4>
- <i class="fas fa-calendar fa-2x text-primary"></i>
- </div>
- </div>
- </div>
- </div>
- <div class="row mt-4">
- <div class="col text-center">
- <p class="fw-bold">Dukung Kami</p>
- <a href="https://whatsapp.com/channel/0029VaxL7402ZjCmqq6FjE1C" class="btn btn-primary btn-sm" target="_blank">
- <i class="fab fa-whatsapp"></i> Whatsapp
- </a>
- </div>
- </div>
- </div>
- <footer class="footer mt-auto">
+<body>
+ <nav class="navbar navbar-expand-lg sticky-top">
  <div class="container">
- <span class="text-muted">Made by <a href="#" style="color: #d82007;">Vor APIs</a></span>
+ <a class="navbar-brand" href="#">VOR-APIs</a>
+ <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+ <span class="navbar-toggler-icon"></span>
+ </button>
+ <div class="collapse navbar-collapse" id="navMenu">
+ <ul class="navbar-nav ms-auto">
+ <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+ <li class="nav-item"><a class="nav-link" href="#about">Tentang Kami</a></li>
+ <li class="nav-item"><a class="nav-link" href="#services">Layanan</a></li>
+ <li class="nav-item"><a class="nav-link" href="#portfolio">Project</a></li>
+ <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
+ <li class="nav-item"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#apiModal">API</a></li>
+ </ul>
+ </div>
+ </div>
+ </nav>
+ <section id="hero" class="hero">
+ <div class="hero-content">
+ <h1>Selamat Datang di Vor-APIs</h1>
+ <p>Menghadirkan solusi inovatif untuk masa depan Projek Anda</p>
+ <a href="#contact" class="btn btn-lg btn-danger mt-4">Hubungi Kami</a>
+ </div>
+ </section>
+ <section id="about" class="container">
+ <div class="row align-items-center">
+ <div class="col-md-6 mb-4">
+ <img src="https://files.catbox.moe/b75ckf.jpg" alt="Tentang Kami" class="img-fluid rounded">
+ </div>
+ <div class="col-md-6">
+ <h2>Tentang Kami</h2>
+ <p>Webs Vor-APIs adalah penyedia layanan API gratis yang menghadirkan solusi digital canggih untuk mendukung berbagai kebutuhan pengembangan aplikasi dan integrasi data. Dengan platform yang mudah digunakan dan aman, kami berkomitmen untuk membantu developer dan bisnis dalam mempercepat inovasi teknologi, meningkatkan produktivitas, dan menghadirkan pengalaman pengguna yang lebih baik.
+</p>
+ <p>Misi kami adalah memberikan nilai tambah bagi setiap pelanggan dengan menyediakan layanan API gratis yang inovatif, kreatif, dan didukung oleh dedikasi tinggi. Kami percaya bahwa melalui teknologi yang canggih dan solusi yang mudah diakses, kami dapat mendukung perkembangan developer dan bisnis menuju kesuksesan.
+</p>
+ </div>
+ </div>
+ </section>
+ <section id="services" class="container">
+ <div class="text-center mb-5">
+ <h2>Layanan Kami</h2>
+ <p>Kami menawarkan berbagai solusi untuk memenuhi kebutuhan digital Anda.</p>
+ </div>
+ <div class="row g-4">
+ <div class="col-md-4">
+ <div class="card p-4 text-center">
+ <i class="fas fa-laptop-code"></i>
+ <h5 class="mt-3">Pengembangan Web</h5>
+ <p>Membuat website responsif dan modern yang dapat meningkatkan citra bisnis anda.</p>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="card p-4 text-center">
+ <i class="fas fa-mobile-alt"></i>
+ <h5 class="mt-3">Aplikasi Mobile</h5>
+ <p>Menyediakan solusi aplikasi mobile yang inovatif dan mudah digunakan untuk bisnis Anda.</p>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="card p-4 text-center">
+ <i class="fas fa-chart-line"></i>
+ <h5 class="mt-3">Digital Marketing</h5>
+ <p>Mengoptimalkan kehadiran online Anda dengan strategi pemasaran digital yang efektif.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+ <section id="portfolio" class="container">
+ <div class="text-center mb-5">
+ <h2>Project Unggulan Kami</h2>
+ <p>Beberapa proyek unggulan yang telah kami kerjakan</p>
+ </div>
+ <div class="row g-4">
+ <div class="col-md-4">
+ <div class="portfolio-item">
+ <img src="https://images.unsplash.com/photo-1523474438810-b04a2480633c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjcyNjB8MHwxfHNlYXJjaHwyfHxXaGF0c0FwcCUyMEJvdCUyMFByb2dyYW1tZXJ8ZW58MHx8fHwxNzQzMTQ1Njg4fDA&ixlib=rb-4.0.3&q=85" alt="Proyek 1">
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="portfolio-item">
+ <img src="https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3MjcyNjB8MHwxfHNlYXJjaHwzfHxwcm9ncmFtbWVyJTIwZm90byUyMDgwMHg4MDB8ZW58MHx8fHwxNzQzMTQ1NTgzfDA&ixlib=rb-4.0.3&q=85" alt="Proyek 2">
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="portfolio-item">
+ <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800" alt="Proyek 3">
+ </div>
+ </div>
+ </div>
+ </section>
+ <section id="contact" class="container">
+ <div class="text-center mb-5">
+ <h2>Kontak Kami</h2>
+ <p>Ingin bekerjasama atau memiliki pertanyaan? Hubungi kami sekarang!</p>
+ </div>
+ <div class="row justify-content-center">
+ <div class="col-md-8">
+ <form>
+ <div class="mb-3">
+ <label for="nama" class="form-label">Nama</label>
+ <input type="text" class="form-control" id="nama" placeholder="Nama lengkap">
+ </div>
+ <div class="mb-3">
+ <label for="email" class="form-label">Alamat Email</label>
+ <input type="email" class="form-control" id="email" placeholder="nama@domain.com">
+ </div>
+ <div class="mb-3">
+ <label for="pesan" class="form-label">Pesan</label>
+ <textarea class="form-control" id="pesan" rows="5" placeholder="Tulis pesan Anda..."></textarea>
+ </div>
+ <div class="d-grid">
+ <a href="https://wa.me/6281527100923?text=bang%20saya%20dari%20member%20vorapis" class="btn btn-danger btn-lg">Kirim Pesan</a>
+ 
+ </div>
+ </form>
+ </div>
+ </div>
+ </section>
+ <footer class="text-center">
+ <div class="container">
+ <p>&copy; Vor-APIs</p>
+ <p>
+ <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+ </p>
  </div>
  </footer>
- </div>
- </div>
  <div class="modal fade" id="apiModal" tabindex="-1" aria-labelledby="apiModalLabel" aria-hidden="true">
- <div class="modal-dialog modal-lg modal-dialog-scrollable">
+ <div class="modal-dialog modal-dialog-scrollable">
  <div class="modal-content">
  <div class="modal-header">
- <h5 class="modal-title" id="apiModalLabel">Daftar Layanan API</h5>
+ <h5 class="modal-title" id="apiModalLabel">Daftar Endpoint API</h5>
  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
  </div>
  <div class="modal-body">
- <h6 class="text-muted">AI</h6>
- <ul class="list-group mb-3">
- <li class="list-group-item">
- <a href="api/viooai?q=hello" target="_blank">LuminAi</a>
- </li>
- <li class="list-group-item">
- <a href="api/openai?q=halo" target="_blank">OpenAi</a>
- </li>
- <li class="list-group-item">
- <a href="api/islamai?q=halo" target="_blank">IslamAi</a>
- </li>
-<li class="list-group-item">
- <a href="api/blackbox?q=siapa" target="_blank">Blackbox</a>
- </li>
- </ul>
- <h6 class="text-muted">Islam</h6>
- <ul class="list-group mb-3">
- <li class="list-group-item">
- <a href="api/jadwalsholat?q=jakarta" target="_blank">Jadwal Sholat</a>
- </li>
- <li class="list-group-item">
- <a href="api/islam/nosurat?q=1" target="_blank">Nomor Surah</a>
- </li>
- </ul>
- <h6 class="text-muted">Search</h6>
- <ul class="list-group mb-3">
- <li class="list-group-item">
- <a href="api/appstore?q=minecraft" target="_blank">App Store</a>
- </li>
- <li class="list-group-item">
- <a href="api/bingimg?q=kodok" target="_blank">Bing Img</a>
- </li>
- <li class="list-group-item">
- <a href="api/lahelu?q=anime" target="_blank">Lahelu</a>
- </li>
- <li class="list-group-item">
- <a href="api/playstore?q=minecraft" target="_blank">Play Store</a>
- </li>
- <li class="list-group-item">
- <a href="api/githubSearch?q=webapi" target="_blank">Github Search</a>
- </li>
- <li class="list-group-item">
- <a href="api/google/search?q=html" target="_blank">Google Search</a>
- </li>
- <li class="list-group-item">
- <a href="api/pin?q=ikann" target="_blank">Pinterest</a>
- </li>
- <li class="list-group-item">
- <a href="api/image/search?q=obito" target="_blank">Image Search</a>
- </li>
- <li class="list-group-item">
- <a href="api/search-image?query=ikann" target="_blank">Search Image</a>
- </li>
- <li class="list-group-item">
- <a href="api/search-image-advanced?query=steve" target="_blank">searchImageWithOptions</a>
- </li>
- <li class="list-group-item">
- <a href="api/yts?q=acumalaka" target="_blank">Youtube Search</a>
- </li>
- </ul>
- <h6 class="text-muted">Games</h6>
- <ul class="list-group mb-3">
- <li class="list-group-item">
- <a href="api/game/family100" target="_blank">Family 100</a>
- <li class="list-group-item">
- <a href="api/game/tebakmakanan" target="_blank">Tebak Makanan</a>
- </li>
- </ul>
- <h6 class="text-muted">Stalk</h6>
- <ul class="list-group mb-3">
- <li class="list-group-item">
- <a href="api/ttstalk?q=ikanngeming" target="_blank">Tiktok Stalk</a>
- </li>
- <li class="list-group-item">
- <a href="api/npmStalk?q=ikanngeming" target="_blank">Npm Stalk</a>
- </li>
- <li class="list-group-item">
- <a href="api/ffStalk?q=12345678" target="_blank">FF Stalk</a>
- </li>
- </ul>
- <h6 class="text-muted">Tools API</h6>
- <ul class="list-group mb-3">
- <li class="list-group-item">
- <a href="api/remove-bg?imageUrl=" target="_blank">Remove-bg</a>
- </li>
- <li class="list-group-item">
- <a href="api/bratv1?q=hai" target="_blank">Brat</a>
- </li>
- <li class="list-group-item">
- <a href="api/bratv2?q=halo" target="_blank">BratV2</a>
- </li>
- <li class="list-group-item">
- <a href="api/utf8?encodedText=ZnVrdXNoaW1haWQ=" target="_blank">Utf8</a>
- </li>
- <li class="list-group-item">
- <a href="api/toBase64?text=hai" target="_blank">toBase64</a>
- </li>
- </ul>
- <h6 class="text-muted">Orkut</h6>
+ <h6>AI</h6>
  <ul class="list-group">
- <li class="list-group-item">
- <a href="/api/orkut/createPayment?amount=&codeqr=" target="_blank">Create Payment</a>
- </li>
+ <li class="list-group-item"><a href="api/viooai?q=hello" target="_blank">LuminAi</a></li>
+ <li class="list-group-item"><a href="api/openai?q=halo" target="_blank">OpenAi</a></li>
+ <li class="list-group-item"><a href="api/islamai?q=halo" target="_blank">IslamAi</a></li>
+ <li class="list-group-item"><a href="api/blackbox?q=siapa" target="_blank">Blackbox</a></li>
+ </ul>
+ <h6 class="mt-3">Islam</h6>
+ <ul class="list-group">
+ <li class="list-group-item"><a href="api/jadwalsholat?q=jakarta" target="_blank">Jadwal Sholat</a></li>
+ <li class="list-group-item"><a href="api/islam/nosurat?q=1" target="_blank">Nomor Surah</a></li>
+ </ul>
+ <h6 class="mt-3">Search</h6>
+ <ul class="list-group">
+ <li class="list-group-item"><a href="api/appstore?q=minecraft" target="_blank">App Store</a></li>
+ <li class="list-group-item"><a href="api/bingimg?q=kodok" target="_blank">Bing Img</a></li>
+ <li class="list-group-item"><a href="api/lahelu?q=anime" target="_blank">Lahelu</a></li>
+ <li class="list-group-item"><a href="api/playstore?q=minecraft" target="_blank">Play Store</a></li>
+ <li class="list-group-item"><a href="api/githubSearch?q=webapi" target="_blank">Github Search</a></li>
+ <li class="list-group-item"><a href="api/google/search?q=html" target="_blank">Google Search</a></li>
+ <li class="list-group-item"><a href="api/pin?q=ikann" target="_blank">Pinterest</a></li>
+ <li class="list-group-item"><a href="api/image/search?q=obito" target="_blank">Image Search</a></li>
+ <li class="list-group-item"><a href="api/search-image?query=ikann" target="_blank">Search Image</a></li>
+ <li class="list-group-item"><a href="api/search-image-advanced?query=steve" target="_blank">Search Image With Options</a></li>
+ <li class="list-group-item"><a href="api/yts?q=acumalaka" target="_blank">Youtube Search</a></li>
+ </ul>
+ <h6 class="mt-3">Games</h6>
+ <ul class="list-group">
+ <li class="list-group-item"><a href="api/game/family100" target="_blank">Family 100</a></li>
+ <li class="list-group-item"><a href="api/game/tebakmakanan" target="_blank">Tebak Makanan</a></li>
+ </ul>
+ <h6 class="mt-3">Stalk</h6>
+ <ul class="list-group">
+ <li class="list-group-item"><a href="api/ttstalk?q=ikanngeming" target="_blank">Tiktok Stalk</a></li>
+ <li class="list-group-item"><a href="api/npmStalk?q=ikanngeming" target="_blank">Npm Stalk</a></li>
+ <li class="list-group-item"><a href="api/ffStalk?q=12345678" target="_blank">FF Stalk</a></li>
+ </ul>
+ <h6 class="mt-3">Tools API</h6>
+ <ul class="list-group">
+ <li class="list-group-item"><a href="api/remove-bg?imageUrl=" target="_blank">Remove Background</a></li>
+ <li class="list-group-item"><a href="api/bratv1?q=hai" target="_blank">Brat</a></li>
+ <li class="list-group-item"><a href="api/bratv2?q=halo" target="_blank">BratV2</a></li>
+ <li class="list-group-item"><a href="api/utf8?encodedText=ZnVrdXNoaW1haWQ=" target="_blank">Utf8</a></li>
+ <li class="list-group-item"><a href="api/toBase64?text=hai" target="_blank">toBase64</a></li>
+ </ul>
+ <h6 class="mt-3">Orkut</h6>
+ <ul class="list-group">
+ <li class="list-group-item"><a href="api/orkut/createPayment?amount=&codeqr=" target="_blank">Create Payment</a></li>
  </ul>
  </div>
  <div class="modal-footer">
@@ -394,131 +349,17 @@ video {
  </div>
  </div>
  </div>
- <a class="scroll-to-top" href="#top">
- <i class="fas fa-angle-up"></i>
- </a>
-
  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
  <script>
- function updateClock() {
- const now = new Date();
- document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+ document.querySelectorAll('a.nav-link').forEach(link => {
+ link.addEventListener('click', function(e) {
+ if(this.hash !== "") {
+ e.preventDefault();
+ const hash = this.hash;
+ document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
  }
- setInterval(updateClock, 1000);
- updateClock();
-
- document.getElementById('postCount').textContent = document.querySelectorAll('.modal-body a').length;
-
- // Update status baterai (jika didukung)
- async function updateBattery() {
- try {
- const battery = await navigator.getBattery();
- document.getElementById('batteryLevel').textContent = Math.floor(battery.level * 100) + '%';
- } catch (e) {
- document.getElementById('batteryLevel').textContent = '∞';
- }
- }
- updateBattery();
-
- document.getElementById('sidebarToggle').addEventListener('click', () => {
- document.querySelector('.sidebar').classList.toggle('d-none');
+ });
  });
  </script>
- <script>
- function saveSettings() {
- const selectedLanguage = document.getElementById("languageSelect").value;
- const selectedTheme = document.getElementById("themeSelect").value;
- localStorage.setItem("language", selectedLanguage);
- localStorage.setItem("theme", selectedTheme);
- applyLanguage(selectedLanguage);
- applyTheme(selectedTheme);
- }
- function applyLanguage(language) {
- const languageData = {
- id: {
- profileName: "Nama",
- profileEmail: "Email",
- profilePhone: "Nomor Telepon",
- languageLabel: "Bahasa",
- themeLabel: "Tema",
- },
- en: {
- profileName: "Nama Pengembang",
- profileEmail: "Email",
- profilePhone: "Phone Number",
- languageLabel: "Language",
- themeLabel: "Theme",
- },
- };
- document.getElementById("profileName").innerText = languageData[language].profileName + ": Cloud AhmadXyz";
- document.getElementById("profileEmail").innerText = languageData[language].profileEmail + ": vortexionchannel@gmail.com";
- document.getElementById("profilePhone").innerText = languageData[language].profilePhone + ": +62 815 271 00923";
- document.getElementById("languageLabel").innerText = languageData[language].languageLabel;
- document.getElementById("themeLabel").innerText = languageData[language].themeLabel;
- }
- function applyTheme(theme) {
- if (theme === "dark") {
- document.body.classList.add("bg-dark", "text-light");
- document.body.classList.remove("bg-light", "text-dark");
- } else {
- document.body.classList.add("bg-light", "text-dark");
- document.body.classList.remove("bg-dark", "text-light");
- }
- }
- document.getElementById("profileLink").addEventListener("click", function(event) {
- event.preventDefault();
- var profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
- profileModal.show();
- });
- document.getElementById("settingsLink").addEventListener("click", function(event) {
- event.preventDefault();
- var settingsModal = new bootstrap.Modal(document.getElementById('settingsModal'));
- settingsModal.show();
- });
- document.getElementById("saveSettings").addEventListener("click", function() {
- saveSettings();
- var settingsModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
- settingsModal.hide();
- });
- document.addEventListener("DOMContentLoaded", function() {
- const language = localStorage.getItem("language") || "id"; 
- const theme = localStorage.getItem("theme") || "light"; 
- applyLanguage(language);
- applyTheme(theme);
- document.getElementById("languageSelect").value = language;
- document.getElementById("themeSelect").value = theme;
- });
-</script>
-
-<script>
- // Fungsi untuk memperbarui jumlah kunjungan
- function updateVisitCount() {
- const visitKey = "visitCount"; // Key untuk menyimpan data kunjungan di localStorage
- const currentCount = parseInt(localStorage.getItem(visitKey)) || 0; // Ambil data dari localStorage atau mulai dari 0
- const newCount = currentCount + 1; // Tambah kunjungan
- localStorage.setItem(visitKey, newCount); // Simpan data kunjungan terbaru ke localStorage
- document.getElementById("visitCount").textContent = `Total Penggunaan: ${newCount} kali`;
- }
-
- // Panggil fungsi saat halaman dimuat
- document.addEventListener("DOMContentLoaded", function () {
- updateVisitCount();
- });
- 
- let startTime = Date.now();
-
-window.addEventListener("beforeunload", () => {
- const duration = Math.floor((Date.now() - startTime) / 1000);
- alert(`Kamu menghabiskan ${duration} detik di halaman ini.`);
-});
-
-const lastVisit = localStorage.getItem("lastVisit") || "Belum pernah berkunjung.";
-document.getElementById("visitHistory").textContent = `Terakhir berkunjung: ${lastVisit}`;
-localStorage.setItem("lastVisit", new Date().toLocaleString());
-
-
-
-</script>
 </body>
 </html>
