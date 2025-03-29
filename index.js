@@ -48,27 +48,6 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
-app.get("/api/google", async (req, res) => {
-  const query = req.query.q;
-
-  if (!query) {
-    return res.status(400).json({
-      error: "Query parameter 'q' diperlukan untuk melakukan pencarian.",
-    });
-  }
-
-  try {
-    const { scrapeGoogle } = require('./scrape')
-    const results = await scrapeGoogle(query);
-    res.json(results);
-  } catch (error) {
-    res.status(500).json({
-      error: "Terjadi kesalahan saat mencari.",
-      details: error.message,
-    });
-  }
-});
-
 app.get("/api/search/lirik", async (req, res) => {
   const { q } = req.query;
 
