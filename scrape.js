@@ -52,44 +52,6 @@ async function ttstalk(username) {
  }
 }
 
-async function scrapeGoogle(query) {
-  try {
-    const response = await fetch(
-      `https://www.google.com/search?q=${encodeURIComponent(query)}&hl=en`
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-    }
-
-    const html = await response.text();
-    const $ = cheerio.load(html);
-    const results = [];
-
-    $("div.tF2Cxc").each((_, element) => {
-      const title = $(element).find("h3").text();
-      const link = $(element).find("a").attr("href");
-      const description = $(element).find(".IsZvec").text();
-
-      if (title && link) {
-        results.push({
-          title,
-          link,
-          description: description.trim(),
-        });
-      }
-    });
-
-    if (results.length === 0) {
-      throw new Error("No results found.");
-    }
-
-    return results;
-  } catch (error) {
-    return { error: error.message };
-  }
-}
-
 function toBase64(text) {
     return Buffer.from(text).toString('base64');
 }
@@ -1500,6 +1462,5 @@ module.exports = {
  searchImageWithOptions,
  blackbox,
  JadwalSholat,
- getLyrics,
- scrapeGoogle
+ getLyrics
 }
