@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ <title>Vor-APIs Modern</title>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+ <style>
+ :root {
+ --primary: #d82007;
+ --accent: #ff7675;
+ --dark: #2d3436;
+ --light-bg: #f8f9fa;
+ --transition-speed: 0.3s;
+ }
+
+ /* Reset dan Global */
+ html, body {
+ overflow-x: hidden;
+ max-width: 100vw;
+ scroll-behavior: smooth;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+
+ /* Navbar */
+ .navbar {
+ background: rgba(255, 255, 255, 0.97);
+ backdrop-filter: blur(10px);
+ box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+ padding: 1rem 0;
+ }
+ .navbar-brand {
+ font-weight: bold;
+ font-size: 1.5rem;
+ color: var(--primary) !important;
+ }
+ .navbar-nav .nav-link {
+ font-size: 1.1rem;
+ margin-right: 1.5rem;
+ color: var(--dark) !important;
+ transition: color var(--transition-speed);
+ }
+ .navbar-nav .nav-link:hover {
+ color: var(--primary) !important;
+ }
+
+ /* Hero Section */
+ .hero-section {
+ height: 100vh;
+ background: linear-gradient(135deg, rgba(45,52,54,0.8), rgba(216,32,7,0.8)), url('https://files.catbox.moe/vkmswh.jpg') center/cover no-repeat;
+ position: relative;
+ display: flex;
+ align-items: center;
+ clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+ }
+ .hero-section::before {
+ content: "";
+ position: absolute;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ background: rgba(0,0,0,0.3);
+ z-index: 1;
+ }
+ .hero-content {
+ position: relative;
+ z-index: 2;
+ color: #fff;
+ animation: fadeInUp 1s ease-in-out;
+ }
+ @keyframes fadeInUp {
+ from { opacity: 0; transform: translateY(20px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+ .hero-content h1 {
+ font-size: 3rem;
+ font-weight: bold;
+ }
+ .hero-content p {
+ font-size: 1.2rem;
+ }
+ .modern-btn {
+ background: linear-gradient(45deg, var(--primary), var(--accent));
+ border: none;
+ padding: 1rem 2rem;
+ color: #fff;
+ border-radius: 50px;
+ font-weight: 600;
+ transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ }
+ .modern-btn:hover {
+ transform: translateY(-3px);
+ box-shadow: 0 10px 20px rgba(216,32,7,0.3);
+ }
+
+ /* Tentang Kami Section */
+ .about-section {
+ padding: 5rem 0;
+ background: var(--light-bg);
+ }
+ .about-section h2 {
+ font-size: 2.5rem;
+ font-weight: 700;
+ margin-bottom: 2rem;
+ position: relative;
+ display: inline-block;
+ }
+ .about-section h2::after {
+ content: '';
+ position: absolute;
+ bottom: -10px;
+ left: 0;
+ width: 60px;
+ height: 4px;
+ background: var(--primary);
+ }
+ .about-content p {
+ font-size: 1.1rem;
+ line-height: 1.8;
+ color: #555;
+ }
+
+ /* Layanan Kami */
+ .services-section {
+ padding: 5rem 0;
+ background: #fff;
+ }
+ .feature-card {
+ background: #fff;
+ border-radius: 15px;
+ padding: 2rem;
+ margin-bottom: 2rem;
+ transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+ box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+ text-align: center;
+ border: none;
+ }
+ .feature-card:hover {
+ transform: translateY(-10px);
+ box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+ }
+ .feature-card i {
+ font-size: 3rem;
+ color: var(--primary);
+ margin-bottom: 1rem;
+ }
+ .feature-card h3 {
+ font-size: 1.5rem;
+ font-weight: bold;
+ margin-bottom: 1rem;
+ }
+ .feature-card p {
+ font-size: 1rem;
+ color: #666;
+ }
+
+ /* Kontak Section */
+ .contact-section {
+ padding: 5rem 0;
+ background: var(--light-bg);
+ }
+ .contact-section h2 {
+ font-size: 2.5rem;
+ font-weight: 700;
+ margin-bottom: 2rem;
+ position: relative;
+ display: inline-block;
+ }
+ .contact-section h2::after {
+ content: '';
+ position: absolute;
+ bottom: -10px;
+ left: 0;
+ width: 60px;
+ height: 4px;
+ background: var(--primary);
+ }
+ .contact-info p {
+ font-size: 1.1rem;
+ margin-bottom: 0.5rem;
+ }
+
+ @media (max-width: 768px) {
+ .hero-content h1 { font-size: 2.5rem; }
+ .navbar-nav .nav-link { margin-right: 1rem; }
+ .about-section h2,
+ .contact-section h2 { font-size: 2rem; }
+ }
+ </style>
+</head>
+<body>
+ <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg fixed-top">
+ <div class="container">
+ <a class="navbar-brand" href="#">VOR-APIs</a>
+
+ </div>
+ </nav>
+
+ <!-- Hero Section -->
+ <section id="hero" class="hero-section">
+ <div class="container">
+ <div class="row">
+ <div class="col-lg-8 text-center text-lg-start">
+ <div class="hero-content">
+ <h1 class="mb-4">Selamat Datang di <span style="background: linear-gradient(45deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vor-APIs</span></h1>
+ <p class="mb-5">Solusi API modern untuk mempercepat transformasi digital Anda</p>
+ <button class="modern-btn">Mulai Sekarang</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Tentang Kami Section -->
+ <section id="about" class="about-section">
+ <div class="container">
+ <h2 class="text-center">Tentang Kami</h2>
+ <div class="row justify-content-center mt-4">
+ <div class="col-md-8 about-content text-center">
+ <p>Kami adalah tim inovatif yang berfokus pada pengembangan solusi API dengan performa tinggi dan keamanan terdepan. Dengan pengalaman yang mendalam dan komitmen terhadap teknologi modern, kami siap membantu bisnis Anda untuk berkembang di era digital.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Layanan Kami Section -->
+ <section id="services" class="services-section">
+ <div class="container">
+ <h2 class="text-center mb-5">Layanan Kami</h2>
+ <div class="row">
+ <div class="col-md-4">
+ <div class="feature-card">
+ <i class="fas fa-rocket"></i>
+ <h3>API Cepat</h3>
+ <p>Teknologi terkini untuk response time yang super cepat.</p>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="feature-card">
+ <i class="fas fa-shield-alt"></i>
+ <h3>Keamanan Terdepan</h3>
+ <p>Proteksi data dan sistem dengan enkripsi modern.</p>
+ </div>
+ </div>
+ <div class="col-md-4">
+ <div class="feature-card">
+ <i class="fas fa-sync-alt"></i>
+ <h3>Integrasi Mudah</h3>
+ <p>Solusi API yang mudah diintegrasikan dengan sistem Anda.</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Kontak Section -->
+ <section id="contact" class="contact-section">
+ <div class="container">
+ <h2 class="text-center mb-5">Kontak</h2>
+ <div class="row justify-content-center">
+ <div class="col-md-6 contact-info text-center">
+ <p><i class="fas fa-envelope me-2"></i> vortexionchannel@gmail.com</p>
+ <p><i class="fas fa-phone me-2"></i> +6281527100923</p>
+ <p><i class="fas fa-map-marker-alt me-2"></i> Indonesia</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- Bootstrap JS -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
