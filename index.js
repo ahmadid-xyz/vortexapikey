@@ -69,6 +69,39 @@ app.get("/api/search/lirik", async (req, res) => {
   }
 });
 
+app.post('/api/translate', async (req, res) => {
+    const { text, targetLang } = req.body;
+
+    if (!text || !targetLang) {
+        return res.status(400).json({
+            status: false,
+            message: 'Parameter "text" dan "targetLang" wajib diisi'
+        });
+    }
+
+    try {
+        const response = await axios.post('https://libretranslate.de/translate', {
+            q: text,
+            source: 'auto',
+            target: targetLang,
+            format: 'text'
+        });
+
+        res.status(200).json({
+            status: true,
+            original: text,
+            translated: response.data.translatedText,
+            targetLang
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            message: 'Terjadi kesalahan saat menerjemahkan',
+            error: error.message
+        });
+    }
+});
+
 app.get('/api/google/search', async (req, res) => {
     try {
         const { q } = req.query;
