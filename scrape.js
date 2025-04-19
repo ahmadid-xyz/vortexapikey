@@ -52,6 +52,27 @@ async function ttstalk(username) {
  }
 }
 
+async function vorai(message, userID, prompt) {
+  const payload = {
+    content: message,
+    user: userID,
+    prompt: prompt,
+  };
+
+  try {
+    const response = await axios.post('https://luminai.my.id/', payload, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data.result || "Maaf, aku tidak paham. Bisa coba ulangi?";
+  } catch (error) {
+    console.error(error);
+    return "Waduh, ada error. Coba lagi nanti ya.";
+  }
+}
+
 function toBase64(text) {
     return Buffer.from(text).toString('base64');
 }
@@ -1462,5 +1483,6 @@ module.exports = {
  searchImageWithOptions,
  blackbox,
  JadwalSholat,
- getLyrics
+ getLyrics,
+ vorai
 }
