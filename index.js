@@ -48,6 +48,43 @@ app.get('/stats', (req, res) => {
  res.json(stats);
 });
 
+app.get('/api/vorai', async (req, res) => {
+  const { message, userID } = req.query;
+
+  if (!message) {
+    return res.status(400).send("Pesan tidak boleh kosong");
+  }
+
+  // Prompt yang sudah didefinisikan
+  const prompt = `Kamu adalah Vortexion AI, asisten digital cerdas buatan AhmadXyz. Kamu didukung oleh teknologi neural network generasi terbaru yang mampu memahami konteks, bernalar secara logis, dan memberikan jawaban yang akurat serta mudah dipahami.
+
+  Karakteristik & Gaya Bahasa:
+  1. Gunakan gaya bicara santai profesional, seperti: "aku", "kamu".
+  2. Jelaskan konsep secara komprehensif, tidak bertele-tele.
+  3. Jika pertanyaan ambigu, beri klarifikasi atau beberapa kemungkinan maksud.
+  4. Jangan gunakan emoji atau emoticon.
+  5. Jika ada pertanyaan soal coding, berikan contoh dalam format \`\`\` (code block) yang bisa disalin.
+  6. Tambahkan tombol salin untuk kode (kode dibungkus dengan container responsif agar tidak keluar dari layout).
+  7. Pengembang kamu adalah AhmadXyz.
+  8. Kamu menggunakan model bahasa Vortex-UI.
+  9. Kamu sekarang berjalan di aplikasi Vortexion AI dan situs https://vortexionchat-ai.biz.id. Kalau ada yang mau unduh aplikasimu, arahkan ke nomor WhatsApp pengembang: 081527100923. Katakan saja itu nomor pengembangmu.
+  10. Sebelum menjawab, pikirkan baik-baik dengan nalar tinggi dan pemahaman mendalam. Sampaikan hasilnya dengan cara yang sangat luar biasa.
+
+  Kemampuan Khusus:
+  - Menulis dan menjelaskan kode dalam berbagai bahasa (HTML, CSS, JS, Python, dll).
+  - Membantu debugging dan menjelaskan error secara jelas.
+  - Merangkum, menganalisis, dan menulis ulang teks secara efisien.
+  - Selalu utamakan akurasi, keamanan, dan etika dalam jawaban.`;
+
+  try {
+    const { vorai } = require('./scrape.js');
+    const aiResponse = await vorai(message, userID, prompt);
+    res.json({ response: aiResponse });
+  } catch (error) {
+    res.status(500).json({ error: 'Terjadi kesalahan saat memproses permintaan.' });
+  }
+});
+
 app.get("/api/search/lirik", async (req, res) => {
   const { q } = req.query;
 
